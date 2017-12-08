@@ -1,0 +1,42 @@
+<!-- ====================== LARGE SCREEN VIEW ====================== -->
+
+    <mat-grid-list  cols="2" rowHeight="50%" gutterSize='0'>
+        <!-- MANO INFORMACIJA -->
+            <mat-grid-tile>
+                <app-my-team class="full-width" (selectUser)='loadData($event)'></app-my-team>
+            </mat-grid-tile>
+        <!-- MANO INFORMACIJA -->
+            <mat-grid-tile >
+                <app-my-team class="full-width" (selectUser)='loadData($event)'></app-my-team>
+            </mat-grid-tile>
+            <!-- DARBU GALERIJOS -->
+            <mat-grid-tile colspan='2'>
+                <app-gallerys class="full-width" [userId]='user_id'></app-gallerys>
+            </mat-grid-tile>
+             <!-- DARBU KAINOS -->
+            
+    </mat-grid-list>
+
+
+        <!-- ====================== SMALL SCREEN VIEW ====================== -->
+      <mat-grid-list fxShow.gt-xs = 'false' cols="1" rowHeight="2:1">
+        <!-- MANO INFORMACIJA -->
+        <mat-grid-tile>
+            <app-my-team class="full-width"></app-my-team>
+        </mat-grid-tile>
+        <!-- DARBU GALERIJOS -->
+        <mat-grid-tile>
+            <app-gallerys></app-gallerys>
+        </mat-grid-tile>
+        <!-- DARBU KAINOS -->
+        <mat-grid-tile>
+            <app-job-price></app-job-price>
+        </mat-grid-tile>
+        <!-- KONTAKTAI -->
+        <mat-grid-tile>
+            <mat-grid-tile-header>Pasirinkite data ir laika</mat-grid-tile-header>
+            <app-kontaktai ></app-kontaktai>
+            <mat-grid-tile-footer>sukurta arno 2017</mat-grid-tile-footer>
+        </mat-grid-tile>
+      </mat-grid-list>
+      

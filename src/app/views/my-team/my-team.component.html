@@ -1,0 +1,77 @@
+<div *ngIf='user' id="fixed-container" >
+    <div (click)="prevImg($event)"  id="left-button" >
+      <button  mat-fab style='background:black !important;opacity:.5;'><mat-icon class='arrow-icon'>&#xE5CB;</mat-icon></button> 
+    </div>
+    <mat-grid-list id="picture-el"
+      cols='2' 
+      gutterSize='0'
+      rowHeight='50%'
+      [@flyRight]='right'
+      (swipeleft)='swipe($event)'
+      (@flyRight.done)="right_animation_done($event)"
+      [@flyLeft]='left'  
+      (swiperight)='swipe($event)'
+      (@flyLeft.done)="left_animation_done($event)" >
+
+        <mat-grid-tile fxLayout fxLayoutWrap fxLayoutAling='space-between center' >
+          <div fxLayout fxLayoutAlign='center center' class="circle-container">
+            <img class="circle-image" [src]="user.images[0].imgURL" alt="">
+          </div>
+          <mat-list >
+              <h3 mat-subheader>Apie mane</h3>
+              <mat-list-item class='limit-height' >
+                <mat-icon mat-list-icon>&#xE7FD;</mat-icon>
+                <p> {{user.name}} {{user.forname}} </p>
+              </mat-list-item>
+              <mat-list-item class='limit-height' >
+                <mat-icon mat-list-icon>&#xE425;</mat-icon>
+                <p> {{user.age}} metai</p>
+              </mat-list-item>
+              <mat-list-item class='limit-height' >
+                <mat-icon mat-list-icon>&#xE80C;</mat-icon>
+                <p> {{user.profesion}} 
+                </p>
+              </mat-list-item>
+            </mat-list>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          {{user.name}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, voluptatibus explicabo. Suscipit quas, nisi consectetur velit dicta minima perferendis magni. Totam expedita autem, aspernatur accusantium quo quod necessitatibus pariatur! Officiis?
+        </mat-grid-tile>
+        <mat-grid-tile  >
+            <mat-list >
+                <h3 mat-subheader>Statusas</h3>
+                <span [ngSwitch]="user.status">
+                  <mat-list-item *ngSwitchCase="0" class='limit-height' >
+                    <mat-icon mat-list-icon>&#xE7FD;</mat-icon>
+                    <p> Laisvas </p>
+                  </mat-list-item>
+                  <mat-list-item *ngSwitchCase="1" class='limit-height' >
+                    <mat-icon mat-list-icon>&#xE7FD;</mat-icon>
+                    <p>dirbu </p>
+                  </mat-list-item>
+                  <mat-list-item *ngSwitchCase="2" class='limit-height' >
+                    <mat-icon mat-list-icon>&#xE7FD;</mat-icon>
+                    <p> atostogos </p>
+                  </mat-list-item>
+                <p *ngSwitchDefault>
+                
+                </p>
+                </span>
+                <mat-list-item class='limit-height' >
+                  <mat-icon mat-list-icon>&#xE425;</mat-icon>
+                </mat-list-item>
+                <mat-list-item class='limit-height' >
+                  <mat-icon mat-list-icon>&#xE80C;</mat-icon>
+                  <p> {{user.profesion}} 
+                  </p>
+                </mat-list-item>
+                <p class="mat-typography"> {{user.message}} </p>
+              </mat-list>
+        </mat-grid-tile>
+        <mat-grid-tile >
+        </mat-grid-tile>
+      </mat-grid-list>
+    <div (click)=nextImg($event) id="right-button" >
+      <button mat-fab style='background:black !important;opacity:.5;' ><mat-icon class='arrow-icon'>&#xE315;</mat-icon></button>
+    </div>
+  </div>  

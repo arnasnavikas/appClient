@@ -1,0 +1,41 @@
+<div *ngIf='displayed_gallerys.length > 0' id="fixed-container" >
+        <div (click)="prevImg($event)"  id="left-button" >
+          <button  mat-fab style='background:black !important;opacity:.5;'><mat-icon class='arrow-icon'>&#xE5CB;</mat-icon></button> 
+        </div>
+        <mat-grid-list fxLayout fxLayoutAlign='center center' 
+                        id="picture-el" 
+                        cols='3' 
+                        gutterSize='20'
+                        [rowHeight]='displayed_gallerys.length>3?"50%":"100%"'
+                        [style.background]='"#FF5722"' 
+                        [@flyRight]='right' 
+                        (swipeleft)='swipe($event)'  
+                        (@flyRight.done)="right_animation_done($event)"
+                        [@flyLeft]='left'  
+                        (swiperight)='swipe($event)'
+                        (@flyLeft.done)="left_animation_done($event)" >
+        <mat-grid-tile  *ngFor='let gallery of displayed_gallerys' >
+                <!-- <mat-grid-tile-header></mat-grid-tile-header> -->
+                <!-- <div fxLayout fxLayoutAlign='center center' class="circle-container">
+                </div> -->
+                <div fxLayout='column' fxLayoutAlign='center center'>
+                    <h1 class="mat-typography gallery-title">{{gallery.name}}</h1>
+                    <div fxLayout fxLayoutAlign='center center' class='circle-container'>
+                        <img class="circle-image" *ngIf='gallery.imgURL && gallery.imgURL.length > 0'[src]="gallery.imgURL[0].imgURL" >
+                    </div>
+                    <!-- <div fxLayout fxLayoutAlign='space-around center'>
+                        <p class="mat-typography gallery-text" style="color:white;width:450px;">
+                            {{gallery.description}}
+                        </p>
+                    </div> -->
+                    <button mat-raised-button class='view-button'><mat-icon>&#xE926;</mat-icon> Skaičiuoti kainą</button>
+                </div>
+                <!-- <mat-grid-tile-footer fxLayout fxLayoutAlign='space-between center' class="mat-typography"><mat-icon style="font-size:25px;">&#xE411;</mat-icon>Galerijos 
+                    <mat-chip-list><mat-chip><span class="mat-typography gallery-number">{{gallery.gallerys}}</span></mat-chip></mat-chip-list>
+                </mat-grid-tile-footer> -->
+            </mat-grid-tile>
+        </mat-grid-list>
+        <div (click)=nextImg($event) id="right-button" >
+          <button mat-fab style='background:black !important;opacity:.5;' ><mat-icon class='arrow-icon'>&#xE315;</mat-icon></button>
+        </div>
+      </div>  
