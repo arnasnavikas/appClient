@@ -1,0 +1,24 @@
+
+    .gallery-title{
+        font-size: 17px !important;
+        text-align: center;
+        width: 100%;
+        color: white;
+        font-weight: bold !important;
+        margin: 0 !important;
+    }
+    
+    .view-button{
+       margin-bottom: 10px;
+       background: #FFC107 !important;
+       color:#212121 !important;
+    }
+      .job-element{
+          min-width: 200px;
+          margin: 10px;
+          background: #E64A19;
+          padding: 10px;
+      }
+ 
+
+     

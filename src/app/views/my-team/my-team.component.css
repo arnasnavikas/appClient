@@ -1,198 +1,70 @@
-#opacity-background{
-  position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: black;
-  opacity: .7;
-  z-index: 2;
-}
-#for-animation{
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  /* position: fixed; */
-  box-sizing: border-box;
-  top: 0;
-  left: 0 ;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 100%;
-  z-index: 3;
-  height: 100%;
-}
-@media screen and (max-width: 640px){
-  #fixed-container{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    box-sizing: border-box;
-    position: absolute;
-    top: 0;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    min-height: 100%;
-    width: 100%;
-    z-index: 4;
-    left: 0;
-    background: black;
-  }
-
-  #gallery-name,
-   #description,
-   #left-button,
-   #right-button{
-    display: none !important;
-  }
-  #image-footer{
-    visibility: hidden;
-  }
-    
-  .hidden-content{
-    opacity: 1 !important;;
-  }
-  #gallery-list-open{
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: white;
-    z-index: 1000 !important;
-  }
-  #side-navigation{
-    z-index: 1000;
-  }
-}
-@media screen and (min-width: 640px){
-  #fixed-container{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    position: absolute;
-    box-sizing: border-box;
-    top: 0;
-    left: 0 ;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    width: 100%;
-    z-index: 4;
-    height: 100%;
-  }
-  #gallery-list-open{
-    display: none;
-  }
-}
-
-#right-button{
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: absolute;
-  right: 0;
-  width: 100px;
-  cursor: pointer;
-  height: 100%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  z-index: 9;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-#left-button{
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: absolute;
-  left: 0;
-  width: 100px;
-  cursor: pointer;
-  height: 100%;
-  z-index: 9;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-#img{
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  position: relative;
-  width: auto;
-  max-width: 100%;
-}
-#picture-el{
-  height: 100%;
-  width: 100%;
- position: absolute;
- top: 0;
-}
 .limit-height{
   height: 35px !important;
 }
-#image-footer{
+.indicator{
   display: block;
-  position: absolute;
-  background: -moz-linear-gradient(rgba(255, 255, 255,0),rgba(0, 0, 0,.5));
-  padding: 0 20px;
-  bottom: 0;
-  left: 0;
-  height: auto;
-  width: 100%;
+  margin: 0 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
 }
-
-#galerijos-pavadimas{
-  display: -webkit-box;
-  display: -ms-flexbox;
+.green{
+  background: #4CAF50;
+  box-shadow: 0px 0px 5px 5px #388E3C;
+}
+.red{
+  background: #D32F2F;
+  box-shadow: 0px 0px 5px 5px #F44336;
+}
+.orange{
+  background: #F57C00;
+  box-shadow: 0px 0px 5px 5px #FF9800;
+}
+/*status mesage color  */
+.free{
+  background: #388E3C;
+  color: white;
+}
+.resting{
+  background: #FF9800;
+  color: white;
+}
+.working{
+  background: #F44336;
+  color: white;
+}
+/* logo style */
+#circle-image{
+  height: 100%;
+  width: auto;
+}
+#logo-container{
+  min-width: 130px;
+  min-height: 130px;
+  height: 130px;
+  width: 130px;
+  overflow: hidden;
+}
+.user-el{
+  display: flex;  
+  height:100% ;
+  position: relative;
+}
+#team-container{
   display: flex;
-  width: 100%;
-  float: left;
-  border-bottom: 1px solid white;
-  color: white;
-  font-size: 18px;
-  padding-left: 20px;
-  font-weight: bold;
+  justify-content: space-around;
+  flex-direction: row;
+  height: 100%;
 }
-#footer-info{
-  display: -webkit-box;
-  display: -ms-flexbox;
+.user-container{
   display: flex;
-  width: 100%;
-  padding-left: 20px;
-  color: white;
-  float: left;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-#close-button{
-  position: absolute;
-  right: 0;
-  top: 0;
-  color: white;
-  margin: 10px;
-  z-index: 5;
-  cursor: pointer;
+.button-style{
+ background : rgba(255,255,255,0) !important;
+box-shadow: unset !important;
 }
 .arrow-icon{
-  color: white;
+  color: black !important;
 }

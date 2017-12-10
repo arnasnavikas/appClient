@@ -71,8 +71,8 @@ import {CdkTableModule} from '@angular/cdk/table';
               MatToolbarModule,
               MatTooltipModule,
               MatStepperModule,
-              BrowserAnimationsModule,
-              CdkTableModule
+              // BrowserAnimationsModule,
+              // CdkTableModule
   ],
   exports:[ MatButtonModule,
             MatCheckboxModule,

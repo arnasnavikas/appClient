@@ -20,3 +20,10 @@ export const SliderAnimation = [
       transition('fly-out => ready',[])
     ])
   ]
+export const ApearAnimation = [
+    trigger('apear', [
+      state('active', style({opacity: 1 })),
+      state('inactive', style({opacity: 0 })),
+      transition('inactive => active', [animate('.5s ease-in')]),
+    ])
+  ]

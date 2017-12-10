@@ -19,9 +19,9 @@ export class BackendService {
   public selected_user :TeamMemberInterfase
   public activeUserIndex;
   
-  public groups : Array<GroupInterface> = []
-  public gallerys : Array<GalerijaInterface> = []
-  public pictures : Array<PictureInterface> = []
+  public groups : GroupInterface[] = []
+  public gallerys : GalerijaInterface[] = []
+  public pictures : PictureInterface[] = []
   public table_rows : TableRow[] = []
   public members : TeamMemberInterfase[] = []
   // delete object
@@ -64,13 +64,13 @@ export class BackendService {
  /**####################################################################
  *             ----GALLERY---- SERVER REQUESTS
  *#####################################################################*/
-  getGalleries(group_id){
-    return this.http.get(environment.get_gallerys+'/'+group_id).
-                                  map(this.extractData).
-                                  catch(this.handleError);
+  getGalleries(user_id){
+    return this.http.get(environment.get_gallerys+user_id)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
-  loadGallerys(group_id){
-    this.getGalleries(group_id).subscribe(data=>{this.gallerys = data; console.log(data)},
+  loadGallerys(user_id){
+    this.getGalleries(user_id).subscribe(data=>{this.gallerys = data; console.log(data)},
                                     err=>{console.log(err)},
                                     ()=>{console.log('gallerys updated')})
   }
@@ -83,21 +83,6 @@ getGalleryPictures(gallery_id){
                   .map(this.extractData)
                   .catch(this.handleError);
 }
-loadGalleryPictures(){
-  this.getGalleryPictures(this.gallery_id).subscribe((pictures:Array<PictureInterface>)=>{this.pictures = pictures},
-                                                      err=>{console.log(err)},
-                                                      ()=>{})
-}
-getPrivateImages(){
-  return this.http.get(environment.upload_pictures+this.selected_user._id,this.options)
-                  .map(this.extractData)
-                  .catch(this.handleError);
-}
-loadPrivatePictures(){
-  this.getPrivateImages().subscribe(pictures=>{this.pictures = pictures},
-    err=>{console.log(err)},
-    ()=>{console.log('privte pictures loaded')})
-  }
 
 /**####################################################################
  *             ----TABLE---- SERVER REQUESTS

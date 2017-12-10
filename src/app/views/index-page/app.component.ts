@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { BackendService } from '../../backend.service'
-import { TeamMemberInterfase } from '../../interface.enum'
+import { TeamMemberInterfase, GroupInterface } from '../../interface.enum'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,15 +8,16 @@ import { TeamMemberInterfase } from '../../interface.enum'
 })
 export class AppComponent implements OnInit {
   constructor(public backendService :BackendService){}
-  title = 'app';
-  private user_id 
+  private groups : GroupInterface[] = []
+  private user_id
   ngOnInit(){
-    this.backendService.getTeamMembers()
-                       .subscribe((member:TeamMemberInterfase[])=>{this.user_id = member[0]._id})
+  }
+  // inserts user_id in <app-job-price> component
+  loadData(user:TeamMemberInterfase){
+      this.user_id = user._id
+      this.backendService.getGroups(user._id).subscribe((groups:GroupInterface[])=>{
+        this.backendService.groups = groups
+      });
   }
 
-  loadData(user:TeamMemberInterfase){
-    console.log(user)
-    this.user_id = user._id
-  }
 }

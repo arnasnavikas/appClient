@@ -2,7 +2,9 @@ import {Component, OnInit, Input, Output,
   EventEmitter,ViewEncapsulation} from '@angular/core';
 import { TeamMemberInterfase } from '../../interface.enum'
 import {BackendService} from '../../backend.service'
-import { SliderAnimation } from '../../animations/slider.animation'
+import { SliderAnimation } from '../../animations/site.animation'
+import {Router } from '@angular/router'
+
 @Component({
   selector: 'app-my-team',
   templateUrl: './my-team.component.html',
@@ -12,11 +14,11 @@ import { SliderAnimation } from '../../animations/slider.animation'
 })
 export class MyTeamComponent implements OnInit {
 
-  constructor(private backendService : BackendService) { }
+  constructor(private backendService : BackendService,private router :Router) { }
 private users : TeamMemberInterfase[] = [];
 @Output() selectUser  = new EventEmitter();
 private user_index = 0;
-private user;
+private user :TeamMemberInterfase;
 // animation trigers
 private right;
 private left;
@@ -26,6 +28,7 @@ ngOnInit() {
     this.users = members
     this.user = this.users[this.user_index];
     this.selectUser.emit(this.user);
+    this.router.navigate([this.user._id ])
   })
 } 
 /**#################### shows next picture ################### */
@@ -48,6 +51,7 @@ private insert_next_image = ()=>{
     this.user = this.users[this.user_index];
     this.right = 'fly-in';
     this.selectUser.emit(this.user);
+  this.router.navigate([this.user._id ])
   }
 /**#################### shows previous picture ################### */
 prevImg(e) {
@@ -68,6 +72,7 @@ private insert_Previous_Image = ()=>{
   this.user = this.users[this.user_index];
   this.left = 'fly-in'
   this.selectUser.emit(this.user);
+  this.router.navigate([this.user._id ])
 }
 /**#################### swipe gestures ################### */
 

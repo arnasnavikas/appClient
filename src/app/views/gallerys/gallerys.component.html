@@ -1,41 +1,49 @@
-<div *ngIf='displayed_gallerys.length > 0' id="fixed-container" >
-        <div (click)="prevImg($event)"  id="left-button" >
-          <button  mat-fab style='background:black !important;opacity:.5;'><mat-icon class='arrow-icon'>&#xE5CB;</mat-icon></button> 
-        </div>
-        <mat-grid-list fxLayout fxLayoutAlign='center center' 
-                        id="picture-el" 
-                        cols='3' 
-                        gutterSize='20'
-                        [rowHeight]='displayed_gallerys.length>3?"50%":"100%"'
-                        [style.background]='"#FF5722"' 
-                        [@flyRight]='right' 
-                        (swipeleft)='swipe($event)'  
-                        (@flyRight.done)="right_animation_done($event)"
-                        [@flyLeft]='left'  
-                        (swiperight)='swipe($event)'
-                        (@flyLeft.done)="left_animation_done($event)" >
-        <mat-grid-tile  *ngFor='let gallery of displayed_gallerys' >
-                <!-- <mat-grid-tile-header></mat-grid-tile-header> -->
-                <!-- <div fxLayout fxLayoutAlign='center center' class="circle-container">
-                </div> -->
-                <div fxLayout='column' fxLayoutAlign='center center'>
-                    <h1 class="mat-typography gallery-title">{{gallery.name}}</h1>
-                    <div fxLayout fxLayoutAlign='center center' class='circle-container'>
-                        <img class="circle-image" *ngIf='gallery.imgURL && gallery.imgURL.length > 0'[src]="gallery.imgURL[0].imgURL" >
-                    </div>
-                    <!-- <div fxLayout fxLayoutAlign='space-around center'>
-                        <p class="mat-typography gallery-text" style="color:white;width:450px;">
-                            {{gallery.description}}
-                        </p>
-                    </div> -->
-                    <button mat-raised-button class='view-button'><mat-icon>&#xE926;</mat-icon> Skaičiuoti kainą</button>
+<div fxLayout fxLayoutAlign='center center' id='image-background'>
+    <div class="mat-typography" fxLayout fxLayoutWrap fxLayoutAlign='center center' id='paslaugos'>
+        <p>Paslaugos:</p>
+             <mat-chip-list >
+                    <mat-chip  *ngFor='let group of backendService.groups'>{{group.name}}</mat-chip>
+            </mat-chip-list>
+    </div>      
+</div>
+
+<div  fxLayout 
+        fxLayoutWrap 
+        fxLayoutAlign="center"
+        [@apear]='show'
+        (@apear.done)='animationDone($event)'
+        >
+        <mat-card class="group-card" 
+                 *ngFor='let group of backendService.groups'>
+                <mat-card-header>
+                  <mat-card-title>{{group.name}}</mat-card-title>
+                  <mat-card-subtitle fxLayout fxLayoutAlign='center center' >
+                    <mat-icon>&#xE412;</mat-icon>{{" "+group.gallerys}}  galerij<span *ngIf="group.gallerys > 1">os</span><span *ngIf="group.gallerys == 1">a</span> 
+                  </mat-card-subtitle>
+                </mat-card-header>  
+                <div fxLayout fxLayoutAlign='center center' class="image-container" [matTooltip]='group.gallerys > 1? "Žiūrėti galerijas":"Žiūrėti galeriją"' matTooltipClass='show-more'>
+                    <img class="my-image" *ngIf="group.imgURL[0]" [src]="group.imgURL[0].imgURL" [alt]="group.imgURL[0].name">
                 </div>
-                <!-- <mat-grid-tile-footer fxLayout fxLayoutAlign='space-between center' class="mat-typography"><mat-icon style="font-size:25px;">&#xE411;</mat-icon>Galerijos 
-                    <mat-chip-list><mat-chip><span class="mat-typography gallery-number">{{gallery.gallerys}}</span></mat-chip></mat-chip-list>
-                </mat-grid-tile-footer> -->
-            </mat-grid-tile>
-        </mat-grid-list>
-        <div (click)=nextImg($event) id="right-button" >
-          <button mat-fab style='background:black !important;opacity:.5;' ><mat-icon class='arrow-icon'>&#xE315;</mat-icon></button>
-        </div>
-      </div>  
+                <mat-card-content style="height:45px;">
+                    <span [ngSwitch]="true">
+                    <p *ngSwitchCase="group.description.length>50">
+                        <span style="cursor:pointer" [matTooltip]='group.description' matTooltipClass='show-more'>
+                            {{group.description.slice(0,50)}}[...] 
+                        </span>
+                    </p>
+                    <p *ngSwitchCase="group.description.length<50">
+                        maziau nei 50
+                    </p>
+                    <p *ngSwitchDefault>
+                    
+                    </p>
+                    </span>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button><mat-icon mat-list-icon>&#xE926;</mat-icon>Skaičiuoti kainą</button>
+                </mat-card-actions>
+              </mat-card>
+ </div>
+
+ <!-- <div id="index-backgroud"></div> -->
+ 

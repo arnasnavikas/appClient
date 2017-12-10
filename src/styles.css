@@ -4,15 +4,24 @@
     width: 100%;
     height: 100%;
     margin: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+ overflow-x: hidden;
+overflow-y: auto; 
+}
+body,html{
+    margin:0;
 }
 
+app-pictures{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
 /* for circle image display */
 .circle-image{
-    width: 120px;
-    height: auto;
+    height: 120px;
+    width: auto;
 }
 .circle-container{
     border-radius: 40px;
@@ -24,3 +33,52 @@
     margin: 10px;
 }
 /* style end */
+/* styles for index page slider */
+.right-button{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  right: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 9;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+.left-button{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  z-index: 9;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  justify-content: left;
+}
+.scroll-main-container{
+    display: flex;  
+    min-height:100%;
+    position: relative;
+    justify-content: center;
+    /* min-height: calc(100% + 19px); */
+    
+}
+.scroll-container{
+    display: flex;
+}
+
+  .arrow-icon{
+    color: white;
+  }
+  /* index page slider style end */

@@ -5,25 +5,27 @@ import { HttpModule} from '@angular/http';
 //customs  modules
 import { MaterialModule } from './modules/material.module';
 import { FlexLayoutModule} from '@angular/flex-layout';
-import { CarouselModule} from "angular2-carousel";
 import { AppRoutingModule } from './modules/app-routing.module'
+import { DragScrollModule } from 'ngx-drag-scroll'
 // components
 import { AppComponent } from './views/index-page/app.component';
-import { KontaktaiComponent } from './views/kontaktai/kontaktai.component'
 import { GallerysComponent } from './views/gallerys/gallerys.component';
 import { JobPriceComponent } from './views/job-price/job-price.component'
 import { MyTeamComponent } from './views/my-team/my-team.component';
 // services
 import { BackendService } from "./backend.service";
-import { SelectPageComponent } from './views/select-page/select-page.component'
+import { SelectPageComponent } from './views/select-page/select-page.component';
+import { PicturesComponent } from './views/pictures/pictures.component';
+import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component'
 @NgModule({
   declarations: [
     AppComponent,
-    KontaktaiComponent,
     GallerysComponent,
     JobPriceComponent,
     MyTeamComponent,
-    SelectPageComponent
+    SelectPageComponent,
+    PicturesComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { SelectPageComponent } from './views/select-page/select-page.component'
     ReactiveFormsModule,
     FlexLayoutModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DragScrollModule  
   ],
   providers: [BackendService],
   bootstrap: [AppComponent]
