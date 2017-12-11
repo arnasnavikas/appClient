@@ -1,24 +1,26 @@
 
-    .gallery-title{
-        font-size: 17px !important;
-        text-align: center;
-        width: 100%;
-        color: white;
-        font-weight: bold !important;
-        margin: 0 !important;
-    }
-    
-    .view-button{
-       margin-bottom: 10px;
-       background: #FFC107 !important;
-       color:#212121 !important;
-    }
-      .job-element{
-          min-width: 200px;
-          margin: 10px;
-          background: #E64A19;
-          padding: 10px;
-      }
- 
-
-     
+.group-card{
+    width: 200px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.my-image{
+    width: 100%;
+}
+.image-container{
+    height: 150px;
+    width: 100%;
+    overflow: hidden;
+    left: 0;
+    cursor: pointer;
+}
+.show-more{
+    font-size: 15px;
+}
+#image-background{
+    width: 100%;
+    padding-top: 30px;
+    background-image: url("http://www.frsjobs.co.uk/uploads/14621719941455868463slider3.jpg");
+    background-attachment: fixed;
+}

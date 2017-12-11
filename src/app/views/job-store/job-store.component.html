@@ -1,0 +1,130 @@
+<!--  for mobile phones  -->
+    <!-- <mat-sidenav-container id="rows-options">
+        <mat-sidenav #sidenav class="example-sidenav">
+            <mat-nav-list >
+              <mat-list-item (click)="add_team_memeber();sidenav.close()">
+                 <mat-icon>&#xE7FE;</mat-icon> Pridėti varotoją 
+              </mat-list-item>
+              <mat-list-item  routerLink='/admin/select-user' (click)="sidenav.close()">
+                <mat-icon>&#xE8D3;</mat-icon>
+                Pasirinkti varotoją
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <h3  matSubheader>Vartotojas nepasirinktas</h3>
+              <h3  matSubheader>Vartotojas: <span style="color:rgb(216, 66, 66)"></span></h3>
+              <span >
+                <mat-list-item routerLink='groups' (click)='sidenav.close()'>
+                  <mat-icon >&#xE896;</mat-icon> Redaguoti grupes 
+                </mat-list-item>
+                <mat-list-item (click)="sidenav.close();createNewGroup()">
+                    <mat-icon>&#xE03B;</mat-icon> Pridėti grupę 
+                  </mat-list-item>
+                  <mat-list-item routerLink='upload-images' (click)='sidenav.close()'>
+                    <mat-icon>&#xE439;</mat-icon> Įkelti paveikslėlių 
+                  </mat-list-item>
+                  <mat-list-item routerLink='private-images' (click)='sidenav.close()'>
+                    <mat-icon>&#xE8A0;</mat-icon> Tvarkyti   paveikslėlius 
+                  </mat-list-item>
+                </span>
+                </mat-nav-list>
+              </mat-sidenav>
+              
+              <div fxLayout='column' fxLayoutWrap fxLayoutAlign='center center' class="example-sidenav-content">
+                  <button type="button" mat-fab (click)="sidenav.open()">
+                      <mat-icon>settings</mat-icon> 
+                    </button>
+                   
+              </div>
+        </mat-sidenav-container> -->
+        
+        <mat-sidenav-container class="example-container">
+      <mat-sidenav #sidenav  >
+        <p><button mat-button >Toggle</button></p>
+      </mat-sidenav>
+    
+      <mat-sidenav-content>
+        
+        <div fxLayout="column" fxLayoutWrap fxLayoutAlign='center center'>
+
+        <button mat-button (click)="sidenav.open()">Open</button>
+            <div id="job-panel">
+                <mat-form-field >
+                  <span matPrefix><mat-icon>search</mat-icon></span>
+                  <input #search  matInput type="text"  placeholder="Ieškoti" autocomplete="off">   
+                  <button *ngIf="search.value != ''" matSuffix mat-icon-button  (click)="search.value = ''; rows = constRows">
+                    <mat-icon>close</mat-icon>
+                  </button> 
+                </mat-form-field>    
+                <mat-form-field >
+                    <mat-select (selectionChange)='filterRows($event)'   placeholder="Paslaugos" [formControl]="groupList" multiple>
+                      <mat-select-trigger>
+                        {{groupList.value && groupList.value[0] ? groupList.value[0].name : ''}}
+                        <span *ngIf="groupList.value?.length > 1" class="example-additional-selection">
+                          (+{{groupList.value.length - 1}} kitos)
+                        </span>
+                      </mat-select-trigger>
+                      <mat-option *ngFor="let group of groups; let i = index" [disabled]='view_samata'  [value]="group" >{{group.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-checkbox (change)='selectAll($event)' [disabled]='view_samata'>Pažymėti visas</mat-checkbox>
+                  <button mat-button color="warn" *ngIf="!view_samata" (click)='viewList()' matTooltip='Žiūrėti samatą'><mat-icon>view_list</mat-icon> Žiūrėti samata ({{samata.length}})</button>
+                  <button mat-button color="primary" *ngIf="view_samata" (click)='rows = previous_rows;view_samata =false' matTooltip='Tęsti skaičiavimą'><mat-icon>undo</mat-icon> atgal</button>
+                  <mat-chip-list class="mat-typography">
+                      <mat-chip color="primary" selected="true">Kaina už darbus:<span style="font-size:25px">{{samataWorkPrice}}</span><mat-icon>euro_symbol</mat-icon></mat-chip>
+                      <mat-chip color="accent" selected="true">Kaina už medžiagas:<span style="font-size:25px">{{samataMaterialPrice}}</span><mat-icon>euro_symbol</mat-icon> </mat-chip>
+                      <mat-chip color="warn" selected="true">Viso:<span style="font-size:25px">{{samataMaterialPrice+samataWorkPrice}}</span><mat-icon>euro_symbol</mat-icon><mat-icon matTooltip='Ištrinti samatą' (click)='deleteSamata()' matChipRemove >cancel</mat-icon> </mat-chip>
+                    </mat-chip-list>
+                </div>
+              
+                  
+                <div *ngIf="rows.length > 0" fxLayout fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center center" style="height:100%">
+                  <mat-card *ngFor='let row of rows' class="job-card">
+                      <button *ngIf="view_samata"  (click)='removeRow(row)' class="top-right" matTooltip='Ištrinti' mat-icon-button > <mat-icon>&#xE5C9;</mat-icon></button>
+                      
+                      <mat-card-header>
+                        <mat-card-title ><span #rowName >{{row.search_name }}</span></mat-card-title>
+                        <mat-card-subtitle>Kaina {{row.price}} €/{{row.type}}</mat-card-subtitle>
+                      </mat-card-header>
+                      <mat-card-content>
+                          <form >
+                              <mat-form-field class="full-width">
+                                <span matPrefix>{{row.type}}</span>
+                                <input matInput type="number" placeholder="Kiekis " 
+                                                              [(ngModel)]="row.input" 
+                                                              [ngModelOptions]="{standalone: true}"
+                                                              (keydown)='limitValue(row,"input")' 
+                                                              (keyup)='limitValue(row,"input")' min="0" maxlength="4" autocomplete="off">
+                              </mat-form-field>
+                              <mat-form-field class="full-width">
+                                <span matPrefix>{{row.iseiga_type}}</span>
+                                <input matInput type="number" [placeholder]="'Išeiga '+'1 '+row.type" 
+                                                              [(ngModel)]="row.iseiga" 
+                                                              [ngModelOptions]="{standalone: true}"
+                                                              (keydown)='limitValue(row,"iseiga")' 
+                                                              (keyup)='limitValue(row,"iseiga")' min="0" autocomplete="off">
+                              </mat-form-field>
+                              <mat-form-field class="full-width">
+                                <span matPrefix>€</span>
+                                <input matInput type="number" [placeholder]="row.material_name+ ' 1 '+row.iseiga_type+' kaina'" 
+                                                              [(ngModel)]="row.material_price" 
+                                                              [ngModelOptions]="{standalone: true}"
+                                                              (keydown)='limitValue(row,"material_price")'
+                                                              (keyup)='limitValue(row,"material_price")' min="0" autocomplete="off">
+                              </mat-form-field>
+                              <p *ngIf='row.iframeURL !=""' >Kur pirkti medžiagas? <button mat-icon-button><mat-icon>&#xE88F;</mat-icon></button> </p>
+                              <p>Suma už darbus: {{row.input*row.price}} €</p>
+                              <p>Suma už medžiagas:{{row.input*row.material_price*row.iseiga}} €</p>
+                              <p>Viso :{{(row.input*row.price)+(row.input*row.material_price*row.iseiga)}} €</p>
+                
+                            </form>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <button mat-button *ngIf="!row.added" (click)='addToList(row)'><mat-icon>&#xE854;</mat-icon>Įtraukti į samatą</button>
+                        <button mat-button *ngIf="row.added" (click)='updateSamata(row)'><mat-icon>refresh</mat-icon>Atnaujinti samatą</button>
+                      </mat-card-actions>
+                    </mat-card>
+                  </div>
+        </div>
+        
+                </mat-sidenav-content>
+              </mat-sidenav-container>

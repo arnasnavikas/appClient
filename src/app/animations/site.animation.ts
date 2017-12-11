@@ -25,5 +25,13 @@ export const ApearAnimation = [
       state('active', style({opacity: 1 })),
       state('inactive', style({opacity: 0 })),
       transition('inactive => active', [animate('.5s ease-in')]),
+    ]),
+    trigger('apear2', [
+      state('visible', style({opacity: 1 })),
+      state('invisible', style({opacity: 0 })),
+      // transition('inactive => active', [animate('.5s ease-in')]),
+      transition('visible => invisible', [
+        animate('.5s ease-out' )
+      ])
     ])
   ]

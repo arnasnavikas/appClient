@@ -16,6 +16,7 @@ export interface TeamMemberInterfase{
 export interface GroupInterface{
     _v?: number,
     _id?: string,
+    user_id, string,
     newMessages?: number,
     gallerys: number,
     table_name: number,

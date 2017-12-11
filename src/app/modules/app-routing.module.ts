@@ -5,9 +5,11 @@ import { PicturesComponent } from '../views/pictures/pictures.component'
 import { AppComponent } from '../views/index-page/app.component'
 import { PageNotFoundComponent } from '../views/page-not-found/page-not-found.component'
 import { GallerysComponent } from '../views/gallerys/gallerys.component';
+import { JobPriceComponent } from '../views/job-price/job-price.component';
+import { JobStoreComponent } from '../views/job-store/job-store.component';
 const routes = [ 
-                {path: ':user-id',component: GallerysComponent},
-                {path:':user-id/:gallery-id',component:PicturesComponent},
+                {path: '',component: JobPriceComponent},
+                {path:':user-id/:group-index',component:JobStoreComponent},
                 {path: '**', component:PageNotFoundComponent}]
 @NgModule({
   imports: [

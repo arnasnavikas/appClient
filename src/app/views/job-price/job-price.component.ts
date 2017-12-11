@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation,Input,OnChanges,ViewChild } from '@angular/core';
 import { BackendService } from '../../backend.service'
-import { GroupInterface} from '../../interface.enum'
+import { GroupInterface,TeamMemberInterfase} from '../../interface.enum'
 import { DragScroll } from 'ngx-drag-scroll'
 import { ApearAnimation } from '../../animations/site.animation'
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-job-price',
   templateUrl: './job-price.component.html',
@@ -10,22 +11,31 @@ import { ApearAnimation } from '../../animations/site.animation'
   encapsulation: ViewEncapsulation.None,
   animations: ApearAnimation
 })
-export class JobPriceComponent implements OnChanges {
-  @Input('groups') groups : GroupInterface[] = []; // dummy var for animation trigger onChange
-  @ViewChild('scrollDrag',{read: DragScroll}) scroll_container;
-  private show = 'inactive'
-  constructor(private backendService : BackendService) { }
- 
-  ngOnChanges(){
-    this.show = 'inactive'
-  }
+export class JobPriceComponent  {
+  constructor(private router: Router,private backendService : BackendService) { }
+  private groups : GroupInterface[] = []
+  private show  // animation triger
+  private nextPage = 'visible' // animation triger
+  private user_id;
+  private index
   animationDone(e){
     this.show = 'active'
   }
-  moveLeft() {
-    this.scroll_container.moveLeft();
+  animation2Done(e){
+    // console.log(e)
+    if(e.toState == 'invisible')
+    this.router.navigate([this.user_id,this.index])
   }
-  moveRight() {
-    this.scroll_container.moveRight();
+    // inserts user_id in <app-job-price> component
+    loadData(user:TeamMemberInterfase){
+      this.backendService.getGroups(user._id).subscribe((groups:GroupInterface[])=>{
+        this.groups = groups
+        this.show  ='inactive'
+      });
+  }
+  navigateTo(group:GroupInterface,index){
+    this.nextPage = 'invisible'
+    this.user_id = group.user_id
+    this.index = index
   }
 }

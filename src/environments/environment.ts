@@ -25,7 +25,7 @@ getPicturesUrl : 'http://'+address+'/picture/get-pictures/',
           getGroups : 'http://'+address+'/group/',
 /******************************* TABLE **************************** */
                 /** get table by group id*/
-        getTableUrl : 'http://'+address+'/table/get-one/',
+        getTableUrl : 'http://'+address+'/table/get-tables/',
 /******************************* TEAM MEMBER **************************** */
                 /** gets specific member  */
 getUserUrl : 'http://'+address+'/my-team/',

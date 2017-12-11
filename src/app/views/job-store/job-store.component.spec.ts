@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectPageComponent } from './select-page.component';
+import { JobStoreComponent } from './job-store.component';
 
-describe('SelectPageComponent', () => {
-  let component: SelectPageComponent;
-  let fixture: ComponentFixture<SelectPageComponent>;
+describe('JobStoreComponent', () => {
+  let component: JobStoreComponent;
+  let fixture: ComponentFixture<JobStoreComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectPageComponent ]
+      declarations: [ JobStoreComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectPageComponent);
+    fixture = TestBed.createComponent(JobStoreComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

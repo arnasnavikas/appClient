@@ -10,6 +10,7 @@ overflow-y: auto;
 }
 body,html{
     margin:0;
+    height:100%;
 }
 
 app-pictures{
@@ -45,7 +46,7 @@ app-pictures{
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 9;
+  z-index: 1;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
@@ -58,7 +59,7 @@ app-pictures{
   top: 0;
   width: 0;
   height: 100%;
-  z-index: 9;
+  z-index: 1;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

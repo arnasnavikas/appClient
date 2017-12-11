@@ -28,7 +28,6 @@ ngOnInit() {
     this.users = members
     this.user = this.users[this.user_index];
     this.selectUser.emit(this.user);
-    this.router.navigate([this.user._id ])
   })
 } 
 /**#################### shows next picture ################### */
@@ -51,7 +50,6 @@ private insert_next_image = ()=>{
     this.user = this.users[this.user_index];
     this.right = 'fly-in';
     this.selectUser.emit(this.user);
-  this.router.navigate([this.user._id ])
   }
 /**#################### shows previous picture ################### */
 prevImg(e) {
@@ -72,7 +70,6 @@ private insert_Previous_Image = ()=>{
   this.user = this.users[this.user_index];
   this.left = 'fly-in'
   this.selectUser.emit(this.user);
-  this.router.navigate([this.user._id ])
 }
 /**#################### swipe gestures ################### */
 

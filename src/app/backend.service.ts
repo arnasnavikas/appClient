@@ -19,7 +19,7 @@ export class BackendService {
   public selected_user :TeamMemberInterfase
   public activeUserIndex;
   
-  public groups : GroupInterface[] = []
+  public group: GroupInterface
   public gallerys : GalerijaInterface[] = []
   public pictures : PictureInterface[] = []
   public table_rows : TableRow[] = []
@@ -50,13 +50,8 @@ export class BackendService {
                     .map(this.extractData)
                     .catch(this.handleError);
   }
-  loadGroups(){
-    this.getGroups(this.selected_user._id).subscribe((groups:GroupInterface[]) => { this.groups = groups; console.log(this.groups)},
-                                              err =>{ console.log(err)},
-                                              ()=>{console.log('groups updated')})
-  }
-  getOneGroup(group_id:string){
-    return this.http.get(environment.getGroups+'/one/'+group_id)
+  getOneGroup(route:string){
+    return this.http.get(environment.getGroups+'/by-route/'+route)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -87,8 +82,8 @@ getGalleryPictures(gallery_id){
 /**####################################################################
  *             ----TABLE---- SERVER REQUESTS
  *#####################################################################*/
-getTable(group_id){
-  return this.http.get(environment.getTableUrl+group_id,this.options)
+getTable(user_id){
+  return this.http.get(environment.getTableUrl+user_id,this.options)
                   .map(this.extractData)
                   .catch(this.handleError);
 }
