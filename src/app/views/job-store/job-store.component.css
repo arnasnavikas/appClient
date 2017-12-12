@@ -17,7 +17,7 @@ input{
 }
 .example-container {
     width: 100%;
-    height: calc(100% - 64px);
+    height: calc(100% - 60px);
   }
   
   .example-sidenav-content {
