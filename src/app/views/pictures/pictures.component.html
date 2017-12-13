@@ -1,16 +1,33 @@
 
-   <div fxLayout fxLayoutWrap fxLayoutAlign='space-around' id="picture-container" >
-
-    <div  fxLayout='column'  *ngFor="let picture of pictures" class="picture-card">
-       <div class="picture-info">
-         <h2>{{picture.gallery_name}}</h2>
-         <h3>{{picture.created | date:'yyyy-MM-dd'}}</h3>
-       </div>
-       <div fxLayout fxLayoutAlign='center center' class="image-container">
-         <img  [src]="picture.imgURL" class="my-image" [alt]="picture.name">
-       </div>
-         <p>
-           {{picture.descrition}}
-         </p>
-      </div>
-   </div>
+   <div fxLayout fxLayoutWrap fxLayoutAlign='space-around center'>
+      <mat-card *ngFor="let picture of pictures" class="picture-card">
+              <mat-card-header fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
+                  <div fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
+                      <mat-card-subtitle>Fotografuota: {{picture.created | date:'yyyy-MM-dd'}}</mat-card-subtitle>
+                  </div>
+                  <div fxLayout fxLayoutAlign='center center'>
+                      <mat-icon>image</mat-icon>
+                      <p>{{picture.gallery_name}}</p>
+                  </div>
+              </mat-card-header>
+              <div fxLayout fxLayoutAlign='center center' class="image-container" >
+                  <img class="my-image"  [src]="picture.imgURL" >
+              </div>
+              <mat-card-content style="height:45px;">
+                      <span [ngSwitch]="true">
+                      <p *ngSwitchCase="picture.description.length>50">
+                          <span style="cursor:pointer" [matTooltip]='picture.description' matTooltipClass='show-more'>
+                              {{picture.description.slice(0,50)}}[...] 
+                          </span>
+                      </p>
+                      <p *ngSwitchCase="picture.description.length<50">
+                          {{picture.description}}
+                      </p>
+                      <p *ngSwitchDefault>
+                      
+                      </p>
+                      </span>
+                  </mat-card-content>
+      </mat-card>
+  </div>
+  

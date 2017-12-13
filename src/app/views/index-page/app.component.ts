@@ -1,12 +1,13 @@
 import { Component,OnInit } from '@angular/core';
 import { BackendService } from '../../backend.service'
+import { Location } from '@angular/common'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(public backendService :BackendService){}
+  constructor(private location:Location,public backendService :BackendService){}
   ngOnInit(){
   }
 

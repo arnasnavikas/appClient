@@ -10,6 +10,8 @@ import { JobStoreComponent } from '../views/job-store/job-store.component';
 const routes = [ 
                 {path: '',component: JobPriceComponent},
                 {path:':user-id/:group-index',component:JobStoreComponent},
+                {path:'galerijos/:user-id/:group-index',component:GallerysComponent},
+                {path:'paveiksleliai/:user-id/:gallery-id',component:PicturesComponent},
                 {path: '**', component:PageNotFoundComponent}]
 @NgModule({
   imports: [

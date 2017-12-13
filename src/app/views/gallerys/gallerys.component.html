@@ -1,0 +1,50 @@
+<!-- filter gallerys -->
+<div fxLayout fxLayoutWrap fxLayoutAlign='center center' id="filter-gallerys">
+    <mat-form-field >
+        <mat-select style="color:white !important"  (selectionChange)='filterGallerys($event)'   placeholder="Kategotijos" [formControl]="groupList" multiple>
+            <mat-select-trigger style="color:white !important">
+                {{groupList.value && groupList.value[0] ? groupList.value[0].name : ''}}
+                <span  *ngIf="groupList.value?.length > 1" class="example-additional-selection">
+                +{{groupList.value.length - 1}}
+                </span>
+            </mat-select-trigger>
+            <mat-option class="gallery-group-list" *ngFor="let group of groups; let i = index" [value]="group" >
+                    <mat-icon>photo_library</mat-icon>{{group.name}} <span class="gallery-number">{{group.gallerys}}</span>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-checkbox (change)='selectAll($event)' >Pažymėti visas</mat-checkbox>
+</div>
+<span fxLayout class="empty-spacer"></span>
+<div id="gallery-container">
+    <mat-card *ngFor="let gallery of gallerys" class="gallery-card">
+            <mat-card-header fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
+                <div fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
+                    <mat-card-subtitle>Įkelta: {{gallery.birth_time | date :"yyyy-MM-dd"}}</mat-card-subtitle>
+                    <mat-card-subtitle>Paveikslėlių: {{gallery.gallery_images}}</mat-card-subtitle>
+                </div>
+                <div fxLayout fxLayoutAlign='center center'>
+                    <mat-icon>folder</mat-icon>
+                    <p>{{gallery.name}}</p>
+                </div>
+            </mat-card-header>
+            <div fxLayout fxLayoutAlign='center center' [routerLink]='["/paveiksleliai",gallery.user_id,gallery._id]' class="image-container" >
+                <img class="my-image"  [src]="'https://dm.victoriassecret.com/p/280x373/tif/b6/ac/b6acaa3785654021853b0340891097f2/068_H17_BRA_011_JT_006_e5664497.jpg'" >
+            </div>
+            <mat-card-content style="height:45px;">
+                    <span [ngSwitch]="true">
+                    <p *ngSwitchCase="gallery.description.length>50">
+                        <span style="cursor:pointer" [matTooltip]='gallery.description' matTooltipClass='show-more'>
+                            {{gallery.description.slice(0,50)}}[...] 
+                        </span>
+                    </p>
+                    <p *ngSwitchCase="gallery.description.length<50">
+                        {{gallery.description}}
+                    </p>
+                    <p *ngSwitchDefault>
+                    
+                    </p>
+                    </span>
+                </mat-card-content>
+    </mat-card>
+</div>

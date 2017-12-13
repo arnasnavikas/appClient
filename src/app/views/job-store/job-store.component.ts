@@ -15,6 +15,7 @@ export class JobStoreComponent implements OnInit {
 
   constructor(private router : ActivatedRoute, private backendService:BackendService) { }
   @ViewChild('search') search_input : ElementRef
+  @ViewChild('searchMobile') searchMobile : ElementRef
   @ViewChildren('rowName') row_name // dom element reference
  private rows : TableRow[] = [] //displayed rows
  private filtered_rows : TableRow[] = [] //constRows filtered by groups_id
@@ -34,13 +35,14 @@ export class JobStoreComponent implements OnInit {
       this.backendService.getGroups(user_id)
                          .subscribe((groups:GroupInterface[])=>{
                            this.groups = groups
+                           this.backendService.groups = groups
                            this.groupList.setValue([groups[this.group_index]])
                            this.backendService.getTable(user_id)
-                           .subscribe((rows:TableRow[])=>{
-                             this.constRows = rows
-                             this.rows = this.constRows.filter(row => row.group_id == this.groups[this.group_index]._id)
-                             this.filtered_rows = this.rows
-                           })
+                                              .subscribe((rows:TableRow[])=>{
+                                                this.constRows = rows
+                                                this.rows = this.constRows.filter(row => row.group_id == this.groups[this.group_index]._id)
+                                                this.filtered_rows = this.rows
+                                              });
                          })
     })
   }
@@ -51,6 +53,7 @@ export class JobStoreComponent implements OnInit {
     this.samata.push(row)
     this.samataWorkPrice = this.calculatePrice(this.samata)[0]
     this.samataMaterialPrice = this.calculatePrice(this.samata)[1]
+    this.backendService.showSuccessMessage(row.name+" įtrauktas į samatą",'gerai',4000)
   }
   calculatePrice(rows:TableRow[]){
     let work_price = 0
@@ -85,6 +88,7 @@ export class JobStoreComponent implements OnInit {
   deleteSamata(){
     if(this.samata.length > 0){
       this.samata = []
+      this.view_samata = false
       this.samataWorkPrice = 0
       this.samataMaterialPrice = 0
       this.rows.map(_row=>{
@@ -94,6 +98,7 @@ export class JobStoreComponent implements OnInit {
         _row.job_total_price = 0
         return _row
       });
+      this.rows = this.previous_rows
     }
   }
   viewList(){
@@ -129,17 +134,23 @@ export class JobStoreComponent implements OnInit {
     this.rows = this.filtered_rows
  }
     ngAfterViewInit(){
+      console.log(this.search_input)
+      let inputs = [ this.search_input.nativeElement,
+                     this.searchMobile.nativeElement]
       /****************************** FILTER ROWS BY NAME FROM INUT ****************************** */
-      Observable.fromEvent(this.search_input.nativeElement,"keydown")
+      for(let elem of inputs){
+      Observable.fromEvent(elem,"keydown")
                             .debounceTime(300)
                             .map((input:any)=>{return input.target.value.trim().toLowerCase().replace(/\W/gi,'')})
                             .subscribe(search_word=>{
                               console.log('keyword replaced '+search_word)
                               let expr = new RegExp(search_word,'gi')
+                              //filter samata rows
                               if(this.view_samata){
                                 this.rows = this.samata.filter(function(row){ 
                                   return row.name.toLowerCase().includes(search_word) == true;
                                 });
+                              //filter displayed rows
                               }else{
                                   this.rows = this.filtered_rows.filter(function(row){ 
                                     return row.name.toLowerCase().includes(search_word) == true;
@@ -147,10 +158,11 @@ export class JobStoreComponent implements OnInit {
                               }
                             });
       /****************************** HIGHLIGHT MATCHED SEARCH VALUE  ****************************** */
-      Observable.fromEvent(this.search_input.nativeElement,"input")
+      Observable.fromEvent(elem,"input")
                             .debounceTime(400)
                             .map((input:any)=>{return input.target.value.trim().toLowerCase().replace(/\W/gi,'')})
                             .subscribe(search_word=>{
+                              console.log('go')
                               let expr = new RegExp(search_word,'gi')
                               if(this.rows.length >0){
                                    for(let span_el of this.row_name._results){
@@ -163,8 +175,8 @@ export class JobStoreComponent implements OnInit {
                                      }
                                    }
                                  }
-                            })
-                              
+                            });
+      }
     }
     
     /** ********* LIMITS INPUT UP TO 5 NUMBER ************* */

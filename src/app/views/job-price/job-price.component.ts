@@ -30,6 +30,7 @@ export class JobPriceComponent  {
     loadData(user:TeamMemberInterfase){
       this.backendService.getGroups(user._id).subscribe((groups:GroupInterface[])=>{
         this.groups = groups
+        this.backendService.groups = groups
         this.show  ='inactive'
       });
   }

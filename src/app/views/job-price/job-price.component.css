@@ -18,9 +18,19 @@
 .show-more{
     font-size: 15px;
 }
-#image-background{
-    width: 100%;
-    padding-top: 30px;
-    background-image: url("http://www.frsjobs.co.uk/uploads/14621719941455868463slider3.jpg");
-    background-attachment: fixed;
+
+.job-container{
+    width:100%; 
+    height: 100%;
+    overflow: auto;
+    position:relative;
 }
+@media only screen and (max-width: 600px) {
+    .job-container{
+        width:100%; 
+        height: 100%;
+        overflow: auto;
+        position:relative;
+        padding-bottom: 60px;
+    }
+} 

@@ -19,7 +19,7 @@ export class BackendService {
   public selected_user :TeamMemberInterfase
   public activeUserIndex;
   
-  public group: GroupInterface
+  public groups: GroupInterface[] =[]
   public gallerys : GalerijaInterface[] = []
   public pictures : PictureInterface[] = []
   public table_rows : TableRow[] = []
@@ -36,7 +36,7 @@ export class BackendService {
   public showSuccessMessage =(message:string,button_message:string,duration:number)=>{
     this.snackBar.open(message,button_message, {
       duration: duration,
-      panelClass: 'blue-snackbar'
+      panelClass: 'position-snackbar'
     });
   }
 
@@ -59,15 +59,10 @@ export class BackendService {
  /**####################################################################
  *             ----GALLERY---- SERVER REQUESTS
  *#####################################################################*/
-  getGalleries(user_id){
+  getGallerys(user_id){
     return this.http.get(environment.get_gallerys+user_id)
                     .map(this.extractData)
                     .catch(this.handleError);
-  }
-  loadGallerys(user_id){
-    this.getGalleries(user_id).subscribe(data=>{this.gallerys = data; console.log(data)},
-                                    err=>{console.log(err)},
-                                    ()=>{console.log('gallerys updated')})
   }
 
 /**####################################################################

@@ -3,6 +3,7 @@
     margin-left: 10px;
     margin-bottom: 10px;
 }
+/* card input */
 .full-width{
     width: 100%;
 }
@@ -13,19 +14,32 @@ input{
     position: absolute;
     top: 0;
     right: 0;
-    width: 100%;
 }
-.example-container {
-    width: 100%;
-    height: calc(100% - 60px);
+
+@media only screen and (min-width: 600px) {
+    #cards-container{
+        width: calc(100% - 200px);
+        margin-left: 200px;
+        padding-top: 20px;
+    }
+    #control-panel{
+          padding-top: 10px;
+          position: fixed;
+          left: 0;
+          top: 60px;
+          width: 200px;
+      }
   }
-  
-  .example-sidenav-content {
-    height: 100%;
-    width: 100%;
+  @media only screen and (max-width: 600px) {
+    #cards-container{
+        width: 100% ;
+        padding-top: 20px;
+    }
+    #control-panel{
+        display: none;
+    }
   }
-  
-  .example-sidenav {
-    padding: 20px;
-  }
-  
+.control-button{
+    width: 90%;
+    margin-top: 10px;
+}
