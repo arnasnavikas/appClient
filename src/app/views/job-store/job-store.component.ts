@@ -4,16 +4,20 @@ import { BackendService} from '../../backend.service'
 import { GroupInterface, TableRow } from '../../interface.enum';
 import { Observable} from 'rxjs'
 import { FormControl} from '@angular/forms'
-import { group } from '@angular/core/src/animation/dsl';
+import { MatDialog } from '@angular/material'
+import { SendMailComponent } from '../../modals/send-mail/send-mail.component'
+import { ApearAnimation } from '../../animations/site.animation'
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 @Component({
   selector: 'app-job-store',
   templateUrl: './job-store.component.html',
   styleUrls: ['./job-store.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: ApearAnimation
 })
-export class JobStoreComponent implements OnInit {
+export class JobStoreComponent implements OnInit,OnDestroy {
 
-  constructor(private router : ActivatedRoute, private backendService:BackendService) { }
+  constructor(private dialog: MatDialog,private router : ActivatedRoute, private backendService:BackendService) { }
   @ViewChild('search') search_input : ElementRef
   @ViewChild('searchMobile') searchMobile : ElementRef
   @ViewChildren('rowName') row_name // dom element reference
@@ -28,6 +32,10 @@ export class JobStoreComponent implements OnInit {
  private group_index
  private previous_rows : TableRow[] = []
  private view_samata = false
+ private nextPage // animation trigger
+ ngOnDestroy(){
+  this.nextPage = 'invisible'
+ }
   ngOnInit() {
     this.router.params.subscribe(params=>{
       this.group_index = params['group-index'];
@@ -98,7 +106,7 @@ export class JobStoreComponent implements OnInit {
         _row.job_total_price = 0
         return _row
       });
-      this.rows = this.previous_rows
+        this.rows = this.previous_rows.length ? this.previous_rows: this.rows
     }
   }
   viewList(){
@@ -133,6 +141,12 @@ export class JobStoreComponent implements OnInit {
     }
     this.rows = this.filtered_rows
  }
+//  sends samata
+sendSamata(){
+  this.dialog.open(SendMailComponent,{
+    data: this.samata
+  })
+}
     ngAfterViewInit(){
       console.log(this.search_input)
       let inputs = [ this.search_input.nativeElement,

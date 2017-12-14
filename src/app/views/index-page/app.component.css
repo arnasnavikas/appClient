@@ -39,7 +39,7 @@
 }
 @media only screen and (max-width: 600px) {
    #main-content{
-       margin-bottom: 60px;
+    margin-bottom: 60px;
     height: calc(100% - 120px);   
     
    }

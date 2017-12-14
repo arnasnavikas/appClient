@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './views/page-not-found/page-not-found.com
 import { BackendService } from "./backend.service";
 import { PicturesComponent } from './views/pictures/pictures.component';
 import { JobStoreComponent } from './views/job-store/job-store.component';
+import { SendMailComponent } from './modals/send-mail/send-mail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { JobStoreComponent } from './views/job-store/job-store.component';
     JobPriceComponent,
     MyTeamComponent,
     PicturesComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SendMailComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { JobStoreComponent } from './views/job-store/job-store.component';
     AppRoutingModule,
     DragScrollModule  
   ],
+  entryComponents:[SendMailComponent],
   providers: [BackendService],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output,
   EventEmitter,ViewEncapsulation} from '@angular/core';
-import { TeamMemberInterfase } from '../../interface.enum'
+import { TeamMemberInterfase, GroupInterface } from '../../interface.enum'
 import {BackendService} from '../../backend.service'
 import { SliderAnimation } from '../../animations/site.animation'
 import {Router } from '@angular/router'
@@ -22,12 +22,18 @@ private user :TeamMemberInterfase;
 // animation trigers
 private right;
 private left;
-
+loadGroups(user){
+  this.backendService.selected_user = user
+  this.backendService.getGroups(user._id)
+                     .subscribe((groups:GroupInterface[])=>{
+                       this.backendService.groups = groups
+                     });
+}
 ngOnInit() {
   this.backendService.getTeamMembers().subscribe((members:TeamMemberInterfase[])=>{
     this.users = members
     this.user = this.users[this.user_index];
-    this.selectUser.emit(this.user);
+    this.loadGroups(this.user)
   })
 } 
 /**#################### shows next picture ################### */
@@ -49,7 +55,7 @@ private insert_next_image = ()=>{
       this.user_index += 1;
     this.user = this.users[this.user_index];
     this.right = 'fly-in';
-    this.selectUser.emit(this.user);
+    this.loadGroups(this.user)
   }
 /**#################### shows previous picture ################### */
 prevImg(e) {
@@ -69,14 +75,14 @@ private insert_Previous_Image = ()=>{
     this.user_index -= 1;
   this.user = this.users[this.user_index];
   this.left = 'fly-in'
-  this.selectUser.emit(this.user);
+  this.loadGroups(this.user)
 }
 /**#################### swipe gestures ################### */
 
   swipe(e){
-    if(e.type == 'swiperight')
+    if(this.users.length > 1 && e.type == 'swiperight')
       this.right = 'fly-out'
-    if (e.type == 'swipeleft')
+    if (this.users.length > 1 && e.type == 'swipeleft')
       this.left = 'fly-out'
   }
 }

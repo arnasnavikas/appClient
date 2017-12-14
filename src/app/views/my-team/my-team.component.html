@@ -1,104 +1,48 @@
-<div *ngIf='user' fxLayout  fxLayoutWrap fxLayoutAlign='center center' style="width:100%;position:relative;overflow:hidden">
-    <div class="left-button" >
-      <button fxShow.lt-sm='false' (click)="prevImg($event)" mat-fab class="button-style"><mat-icon class='arrow-icon'>&#xE5CB;</mat-icon></button> 
-    </div> 
-    <div fxLayout fxLayoutWrap 
-                    style="width:100%;"
-                    fxLayoutAlign ='space-around center'
-                    [@flyRight]='right'
-                    (swipeleft)='swipe($event)'
-                    (@flyRight.done)="right_animation_done($event)"
-                    [@flyLeft]='left'  
-                    (swiperight)='swipe($event)'
-                    (@flyLeft.done)="left_animation_done($event)" >
-<!-- FIRST COLUMN TOP TILE  -->
- <!-- ***************** USER LOGO CONTAINER ***************** -->
-        <div fxLayout 
-             fxFlex.gt-xs='10%' 
-             fxFlex.xs='50%' 
-             fxLayoutAlign="center center" >
-            <div id="logo-container" fxLayout fxLayoutAlign="center center">
-              <img *ngIf="user.images[0]" [src]="user.images[0].imgURL"  id="circle-image" alt="">
-            </div>
-        </div>
-<!-- SECOND COLUMN TOP TILE  -->
- <!-- ***************** STATUS CONTAINER ***************** -->
-        <div fxFlex.gt-xs='30%' 
-             fxFlex.xs='100%'   
-             fxLayoutAlign='space-around center' >
-            <mat-list fxFlex='50'>
-                <h3 mat-subheader>Statusas</h3>
-                <span [ngSwitch]="user.status">
-                  <mat-list-item *ngSwitchCase="0" class='limit-height' >
-                    <span class='indicator red'></span>
-                    <p> Užimtas </p>
-                  </mat-list-item>
-                  <mat-list-item *ngSwitchCase="1" class='limit-height' >
-                    <span class='indicator orange'></span>
-                    <p>Atotogos </p>
-                  </mat-list-item>
-                  <mat-list-item *ngSwitchCase="2" class='limit-height' >
-                    <span class='indicator green'></span>
-                    <p> Laisvas </p>
-                  </mat-list-item>
-                <p *ngSwitchDefault>
-                
-                </p>
-                </span>
-                <mat-list-item [matTooltip]='user.status == 1? "Atostogauju iki" :"Numatoma darbų pabaiga"' *ngIf="user.status != 2" class='limit-height' >
-                  <mat-icon mat-list-icon>&#xE916;</mat-icon>
-                  iki {{user.date | date:'yyyy-MM-dd'}}
-                </mat-list-item>
-                <mat-list-item matTooltip='Darbus pas jus pradėčiau po' *ngIf="user.status != 2" class='limit-height' >
-                  <mat-icon mat-list-icon>&#xE425;</mat-icon>
-                  liko {{user.days_left}} dienų
-                </mat-list-item>
-              </mat-list>
-              <mat-card fxFlex='50%' [class.working]='user.status == 0' [class.resting]='user.status == 1' [class.free]='user.status == 2'> {{user.message}} </mat-card>
-        </div>
-<!-- FIRST COLUMN BOTTOM TILE  -->
- <!-- ***************** ABOUT ME  CONTAINER ***************** -->
-        <div fxFlex.gt-xs='25%' fxFlex.xs='100%' fxLayout fxLayoutWrap fxLayoutAlign='space-around center'>
-              <div fxLayout fxLayoutAlign='center center' class="circle-container">
-                <img class="circle-image" *ngIf="user.images[1]" [src]="user.images[1].imgURL" alt="">
+<div *ngIf="user" fxLayout fxLayoutAlign='space-around center' id="main-container">
+  <!-- next usser  -->
+   <div class="left-button" matTooltip='Sekantis paslaugų teikėjas'  >
+      <button *ngIf='users.length > 1' fxShow.lt-sm='false' (click)="prevImg($event)" mat-fab class="button-style"><mat-icon class='arrow-icon'>&#xE5CB;</mat-icon></button> 
+  </div> 
+  <div fxLayout fxLayoutAlign='space-around center'
+      fxLayoutAlign ='space-around center'
+      matTooltip='Visa reikalinga informacija' 
+      [@flyRight]='right'
+      (swipeleft)='swipe($event)'
+      (@flyRight.done)="right_animation_done($event)"
+      [@flyLeft]='left'  
+      (swiperight)='swipe($event)'
+      (@flyLeft.done)="left_animation_done($event)" >
+    <div id="circle-image-container">
+      <img id='circle-image' *ngIf="user.images[0]" [src]="user.images[0].imgURL" alt="">
+    </div>
+    <div id="status-container" fxLayout='column' fxLayoutAlign='center' >
+      <div id="status">
+          <span [ngSwitch]="user.status" class='mat-typography'>
+              <div fxLayout fxLayoutAlign='space-between center'  *ngSwitchCase="0" class='limit-height' >
+                <span class='indicator red'></span>
+                 Užimtas 
               </div>
-              <mat-list  >
-                  <h3 mat-subheader>Apie mane</h3>
-                  <mat-list-item class='limit-height' >
-                    <mat-icon mat-list-icon>&#xE7FD;</mat-icon>
-                    <p> {{user.name}} {{user.forname}} </p>
-                  </mat-list-item>
-                  <mat-list-item class='limit-height' >
-                    <mat-icon mat-list-icon>&#xE7E9;</mat-icon>
-                    <p> {{user.age}} metai</p>
-                  </mat-list-item>
-                  <mat-list-item matTooltip='Išsilavinimas' class='limit-height' >
-                    <mat-icon mat-list-icon>&#xE80C;</mat-icon>
-                    <p> {{user.profesion}} 
-                    </p>
-                  </mat-list-item>
-                </mat-list>
-          </div>
-<!-- SECOND COLUMN BOTTOM TILE  -->
- <!-- ***************** CONTACTS CONTAINER ***************** -->
-        <div fxFlex.gt-xs='25%'
-             fxFlex.xs='100%' 
-             fxLayoutWrap
-             fxLayoutAlign='center center'>
-            <mat-list  >
-                <h3 mat-subheader>Kontaktai</h3>
-                <mat-list-item class='limit-height' >
-                  <mat-icon mat-list-icon>&#xE325;</mat-icon>
-                  <p> not implenented yeat </p>
-                </mat-list-item>
-                <mat-list-item class='limit-height' >
-                  <mat-icon mat-list-icon>&#xE158;</mat-icon>
-                  <p> not implemented yeat</p>
-                </mat-list-item>
-              </mat-list>
-        </div>
+              <div fxLayout fxLayoutAlign='space-between center' *ngSwitchCase="1" class='limit-height' >
+                <span class='indicator orange'></span>
+                Atotogos 
+              </div>
+              <div fxLayout fxLayoutAlign='space-between center' *ngSwitchCase="2" class='limit-height' >
+                <span class='indicator green'></span>
+                 Laisvas 
+              </div>
+              <p *ngSwitchDefault>
+              
+              </p>
+            </span>
       </div>
-      <div class="right-button">
-        <button (click)=nextImg($event) fxShow.lt-sm='false' class="button-style" mat-fab ><mat-icon class='arrow-icon'>&#xE315;</mat-icon></button>
+      <div *ngIf="user.status != 2" class='mat-typography' id="status-time" fxLayout fxLayoutAlign='space-between center'>
+          <mat-icon mat-list-icon>&#xE916;</mat-icon>
+          iki {{user.date | date:'yyyy-MM-dd'}}
       </div>
-  </div>  
+    </div>
+  </div>
+  <!-- previous user -->
+  <div class="right-button" matTooltip='Ankstesnis paslaugų teikėjas' >
+    <button *ngIf='users.length > 1' (click)=nextImg($event) fxShow.lt-sm='false' class="button-style" mat-fab ><mat-icon class='arrow-icon'>&#xE315;</mat-icon></button>
+  </div>
+</div>

@@ -2,6 +2,9 @@
     width: 200px;
     margin-left: 10px;
     margin-bottom: 10px;
+    height:-webkit-fit-content;
+    height:-moz-fit-content;
+    height:fit-content
 }
 /* card input */
 .full-width{
@@ -33,7 +36,8 @@ input{
   @media only screen and (max-width: 600px) {
     #cards-container{
         width: 100% ;
-        padding-top: 20px;
+        padding-top: 170px;
+        margin-top: 10px;
     }
     #control-panel{
         display: none;
@@ -42,4 +46,16 @@ input{
 .control-button{
     width: 90%;
     margin-top: 10px;
+}
+.mobile-view-control{
+    position: fixed;
+    top: 66px;
+    left: 0;
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    padding: 10px;
+    z-index: 2;
+    background: white;
+    border: 2px solid #607D8B;
+    border-radius: 16px;
 }

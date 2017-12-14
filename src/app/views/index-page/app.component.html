@@ -6,14 +6,15 @@
       <button type="button" mat-icon-button (click)="sidenav.open()">
         <mat-icon>more_vert</mat-icon> 
       </button>
-      <button fxHide.xs type="button" mat-button routerLink='/'>
+      <button fxHide.xs type="button" mat-button (click)='backendService.setParams("/")'>
         <mat-icon>home</mat-icon> Pagrindinis
       </button>
+      <app-my-team></app-my-team> 
       
       <!-- This fills the remaining space of the current row -->
       <span class="fill-remaining-space"></span>
       <!-- SEND MAIL BUTTON -->
-      <button mat-fab color='warn' ><mat-icon>&#xE151;</mat-icon></button>
+      <button mat-fab color='warn' (click)='sendMail()' ><mat-icon>&#xE151;</mat-icon></button>
     </mat-toolbar>
 <!-- ******************* HIDDED NAVIGATION ***************** -->
     <mat-sidenav #sidenav class="example-sidenav">
@@ -45,8 +46,8 @@
                   </p>
               </mat-expansion-panel-header>
                <mat-list-item *ngFor="let group of backendService.groups; let i = index"
-                              [routerLink]='["/",group.user_id,i]' 
-                              (click)='sidenav.close()'
+                              (click)='sidenav.close();'
+                              [routerLink]='[group.user_id,i]'
                               [routerLinkActive]="'active-link'">
                  <p fxLayout fxLayoutAlign="end" style="width:100%">{{group.name}}</p>
                </mat-list-item> 
@@ -55,12 +56,12 @@
         </mat-nav-list>
     </mat-sidenav>
 <!-- ********** MAIN CONTENT *********  -->
-    <div fxLayout='column' fxLayoutWrap fxLayoutAlign='center' id='main-content' >
+    <div [@apear]='backendService.animationTriger' (@apear.done)='animationDone($event)' fxLayout='column' fxLayoutWrap fxLayoutAlign='center center' id='main-content' >
       <router-outlet ></router-outlet>
       <!-- MOBILE PHONE NAVIGATION visible on 600px or less -->
       <mat-toolbar fxHide.gt-xs='true'  fxLayout  color='primary' fxLayoutWrap fxLayoutAlign="space-between center" id='bottom-menu'>
         <button mat-icon-button (click)=location.back()><mat-icon>&#xE5C4;</mat-icon></button>
-        <button mat-icon-button routerLink='/' ><mat-icon>&#xE88A;</mat-icon></button>
+        <button mat-icon-button (click)='backendService.setParams("/")' ><mat-icon>&#xE88A;</mat-icon></button>
         <button mat-icon-button (click)=location.forward()><mat-icon>&#xE5C8;</mat-icon></button>
       </mat-toolbar>
     </div>

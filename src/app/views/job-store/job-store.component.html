@@ -3,14 +3,14 @@
   <mat-sidenav #sidenav  >
     <mat-nav-list >
 
-      <h3  matSubheader>Už darbus: {{samataMaterialPrice+samataWorkPrice}} <mat-icon>euro_symbol</mat-icon></h3>
-      <h3  matSubheader>Už medžiagas: {{samataWorkPrice}} <mat-icon>euro_symbol</mat-icon></h3>
-      <h3  matSubheader>Viso: {{samataMaterialPrice}} <mat-icon>euro_symbol</mat-icon></h3>
+      <h3  matSubheader>Už darbus: {{samataMaterialPrice+samataWorkPrice }} <mat-icon>euro_symbol</mat-icon></h3>
+      <h3  matSubheader>Už medžiagas: {{samataWorkPrice }} <mat-icon>euro_symbol</mat-icon></h3>
+      <h3  matSubheader>Viso: {{samataMaterialPrice }} <mat-icon>euro_symbol</mat-icon></h3>
       <mat-divider></mat-divider>
   
       <!-- ************* VIEW SAMATA BUTTON ************* -->
         <mat-list-item  (click)='sidenav.close()'>
-          <button mat-button color="warn" [disabled]="!view_samata" (click)='viewList()' matTooltip='Žiūrėti samatą'><mat-icon>view_list</mat-icon> Žiūrėti samata ({{samata.length}})</button>
+          <button mat-button color="warn" [disabled]="samata.length == 0" (click)='viewList()' matTooltip='Žiūrėti samatą'><mat-icon>view_list</mat-icon> Žiūrėti samata ({{samata.length}})</button>
         </mat-list-item>
         <mat-list-item  (click)='sidenav.close()'>
           <button mat-button color="primary" [disabled]='samata.length == 0' (click)='viewList()' matTooltip='Siūsti samatą'><mat-icon>send</mat-icon> Siūsti samatą </button>
@@ -21,7 +21,7 @@
   <mat-sidenav-content >
     <div fxLayout fxLayoutWrap fxLayoutAlign='space-around' style="width:100%;">
               <!-- ************** CONTROLS FOR MOBILE VIEW ************ -->
-      <div  fxHide.gt-xs='true' fxLayout fxLayoutWrap fxLayoutAlign='center' >
+      <div  fxHide.gt-xs='true' fxLayout fxLayoutWrap fxLayoutAlign='center' class="mobile-view-control">
         <!-- BACK FROM VIEW SAMATA VIEW BUTTON -->
         <span fxFlex='15'>
           <button mat-fab color="primary" [disabled]="!view_samata" (click)='rows = previous_rows;view_samata =false' matTooltip='Tęsti skaičiavimą'><mat-icon>undo</mat-icon></button>
@@ -82,19 +82,19 @@
                       <!-- SAMATA CONTROLS  -->
                           <!-- view samata -->
                       <button mat-raised-button color="warn" class="control-button" *ngIf="!view_samata" [disabled]='samata.length == 0' (click)='viewList()' matTooltip='Žiūrėti samatą'><mat-icon>view_list</mat-icon> Žiūrėti samata ({{samata.length}})</button>
-                          <!-- view samata -->
-                      <button mat-raised-button color="primary" class="control-button" style='margin-bottom:10px' [disabled]='samata.length == 0' (click)='viewList()' matTooltip='Siūsti samatą'><mat-icon>send</mat-icon> Siūsti samatą </button>
+                          <!-- send samata -->
+                      <button mat-raised-button color="primary" class="control-button" style='margin-bottom:10px' [disabled]='samata.length == 0' (click)='sendSamata()' matTooltip='Siūsti samatą'><mat-icon>send</mat-icon> Siūsti samatą </button>
                           <!-- navigate back to list -->
                       <button mat-fab color="primary" style="margin:10px 0" *ngIf="view_samata" (click)='rows = previous_rows;view_samata =false' matTooltip='Tęsti skaičiavimą'><mat-icon>undo</mat-icon></button>
                       <mat-chip-list class="mat-typography mat-chip-list-stacked" aria-orientation="vertical">
-                          <mat-chip fxLayout fxLayoutAlign='center center' style="background:#757575 !important" selected="true">Kaina už darbus:<span >{{samataWorkPrice}}</span><mat-icon>euro_symbol</mat-icon></mat-chip>
-                          <mat-chip fxLayout fxLayoutAlign='center center' style="background:#616161 !important" selected="true">Kaina už medžiagas:<span >{{samataMaterialPrice}}</span><mat-icon>euro_symbol</mat-icon> </mat-chip>
-                          <mat-chip fxLayout fxLayoutAlign='center center' style="background:#424242 !important" selected="true">Viso:<span >{{samataMaterialPrice+samataWorkPrice}}</span><mat-icon>euro_symbol</mat-icon><mat-icon matTooltip='Ištrinti samatą' (click)='deleteSamata()' matChipRemove >cancel</mat-icon> </mat-chip>
+                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#757575 !important" selected="true">Kaina už darbus:<span >{{samataWorkPrice | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon></mat-chip>
+                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#616161 !important" selected="true">Kaina už medžiagas:<span >{{samataMaterialPrice | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon> </mat-chip>
+                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#424242 !important" selected="true">Viso:<span >{{(samataMaterialPrice+samataWorkPrice) | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon><mat-icon matTooltip='Ištrinti samatą' (click)='deleteSamata()' matChipRemove >cancel</mat-icon> </mat-chip>
                         </mat-chip-list>
                     </div>
                   
                       <!-- SAMATA CARD  -->
-                    <div id="cards-container" *ngIf="rows.length > 0" fxLayout fxLayoutWrap fxLayoutAlign='space-around'>
+                    <div id="cards-container" *ngIf="rows.length > 0" fxLayout fxLayoutWrap fxLayoutAlign='center center'>
                       <mat-card *ngFor='let row of rows' class="job-card">
                           <button *ngIf="view_samata"  (click)='removeRow(row)' class="top-right" matTooltip='Ištrinti' mat-icon-button > <mat-icon>&#xE5C9;</mat-icon></button>
                           
@@ -129,9 +129,9 @@
                                                                   (keyup)='limitValue(row,"material_price")' min="0" autocomplete="off">
                                   </mat-form-field>
                                   <p *ngIf='row.iframeURL !=""' >Kur pirkti medžiagas? <button mat-icon-button><mat-icon>&#xE88F;</mat-icon></button> </p>
-                                  <p>Suma už darbus: {{row.input*row.price}} €</p>
-                                  <p>Suma už medžiagas:{{row.input*row.material_price*row.iseiga}} €</p>
-                                  <p>Viso :{{(row.input*row.price)+(row.input*row.material_price*row.iseiga)}} €</p>
+                                  <p>Suma už darbus: {{(row.input*row.price) | currency:'EUR':true:'1.2-2'}} </p>
+                                  <p>Suma už medžiagas:{{(row.input*row.material_price*row.iseiga) | currency:'EUR':true:'1.2-2'}} </p>
+                                  <p>Viso :{{((row.input*row.price)+(row.input*row.material_price*row.iseiga )) | currency:'EUR':true:'1.2-2'}} </p>
                     
                                 </form>
                           </mat-card-content>

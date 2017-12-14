@@ -1,5 +1,5 @@
-.limit-height{
-  height: 35px !important;
+app-my-team{
+  width: 300px;
 }
 .indicator{
   display: block;
@@ -33,33 +33,16 @@
   background: #F44336;
   color: white;
 }
-/* logo style */
+
 #circle-image{
-  height: 100%;
+  height: 50px;
   width: auto;
 }
-#logo-container{
-  min-width: 130px;
-  min-height: 130px;
-  height: 130px;
-  width: 130px;
+#circle-image-container{
+  border-radius: 20px;
+  height: 40px;
+  width: 40px;
   overflow: hidden;
-}
-.user-el{
-  display: flex;  
-  height:100% ;
-  position: relative;
-}
-#team-container{
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  height: 100%;
-}
-.user-container{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 .button-style{
  background : rgba(255,255,255,0) !important;
@@ -67,4 +50,7 @@ box-shadow: unset !important;
 }
 .arrow-icon{
   color: black !important;
+}
+#main-container{
+  cursor: pointer;
 }

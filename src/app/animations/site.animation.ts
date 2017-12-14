@@ -22,16 +22,20 @@ export const SliderAnimation = [
   ]
 export const ApearAnimation = [
     trigger('apear', [
-      state('active', style({opacity: 1 })),
-      state('inactive', style({opacity: 0 })),
-      transition('inactive => active', [animate('.5s ease-in')]),
-    ]),
-    trigger('apear2', [
       state('visible', style({opacity: 1 })),
       state('invisible', style({opacity: 0 })),
-      // transition('inactive => active', [animate('.5s ease-in')]),
-      transition('visible => invisible', [
-        animate('.5s ease-out' )
+      state('hidden', style({visibility: "hidden" })),
+      //
+      transition('void => *', [style({opacity:0}),
+        animate('.5s ease-in',style({opacity:1}) )
+      ]),
+      // disapear animation
+      transition('* => invisible', [
+        animate('.5s ease-out')
+      ]),
+      //apear animation
+      transition('invisible <=> visible', [
+        animate('.5s ease-in')
       ])
     ])
   ]

@@ -34,13 +34,15 @@ mat-sidenav-content {
     height: 100% !important;
     position: relative;
 }
+
 app-pictures,
 app-gallerys,
 app-job-store,
-app-job-price{
+app-job-price
+{
     position: relative;
     width: 100%;
-    height: 100%;
+    overflow: auto;
 }
 @media only screen and (max-width: 600px) {
     .position-snackbar{

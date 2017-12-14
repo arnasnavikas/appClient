@@ -17,30 +17,28 @@ export class BackendService {
   private options = new RequestOptions({ headers: this.headers });
   
   public selected_user :TeamMemberInterfase
-  public activeUserIndex;
-  
-  public groups: GroupInterface[] =[]
-  public gallerys : GalerijaInterface[] = []
-  public pictures : PictureInterface[] = []
-  public table_rows : TableRow[] = []
-  public members : TeamMemberInterfase[] = []
-  // delete object
-  public addToList = false // enables items selecting for deletion
-  public selected_items = []  // arry of items _id or other information of selected itemd
-  public item_type : string = '' // type for multiple delete
-  public selected_DOM_items = [] // holds selected itmes DOM, for removing class after canceling deletion
-  //group parmas
-  public gallery_id : string = ''
-  public group_id : string = ''
+  // nimation between pages
+  public animationTriger
+  public router_params
 
+  public groups: GroupInterface[] =[]
+// for animation 
+  setParams(...args){
+    console.log(args)
+    console.log(this.router_params)
+    if(JSON.stringify(this.router_params) === JSON.stringify(args)){
+      console.log('same params')
+      return;
+    }
+    this.animationTriger = 'invisible'
+    this.router_params = args
+  }
   public showSuccessMessage =(message:string,button_message:string,duration:number)=>{
     this.snackBar.open(message,button_message, {
       duration: duration,
       panelClass: 'position-snackbar'
     });
   }
-
-
 /**####################################################################
  *             ----GROUP---- SERVER REQUESTS
  *#####################################################################*/

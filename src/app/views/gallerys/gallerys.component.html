@@ -16,7 +16,7 @@
     <mat-checkbox (change)='selectAll($event)' >Pažymėti visas</mat-checkbox>
 </div>
 <span fxLayout class="empty-spacer"></span>
-<div id="gallery-container">
+<div fxLayout fxLayoutWrap fxLayoutAlign='center center' style="padding-top:110px;">
     <mat-card *ngFor="let gallery of gallerys" class="gallery-card">
             <mat-card-header fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
                 <div fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
