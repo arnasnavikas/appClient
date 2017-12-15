@@ -28,8 +28,8 @@
                     <p>{{gallery.name}}</p>
                 </div>
             </mat-card-header>
-            <div fxLayout fxLayoutAlign='center center' [routerLink]='["/paveiksleliai",gallery.user_id,gallery._id]' class="image-container" >
-                <img class="my-image"  [src]="'https://dm.victoriassecret.com/p/280x373/tif/b6/ac/b6acaa3785654021853b0340891097f2/068_H17_BRA_011_JT_006_e5664497.jpg'" >
+            <div fxLayout fxLayoutAlign='center center' (click)='backendService.setParams("/paveiksleliai",gallery.user_id,gallery._id)' class="image-container" >
+                <img class="my-image"  [src]="gallery.index_img" >
             </div>
             <mat-card-content style="height:45px;">
                     <span [ngSwitch]="true">

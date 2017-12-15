@@ -1,0 +1,44 @@
+app-my-info{
+    position: relative;
+}
+#user-pictures{
+      width: 250px;
+      overflow: hidden;
+      position: relative;
+    }
+
+#picture-el{
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+  #image-footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background: rgba(0,0,0,.6);    
+  }
+  
+  #picture-date,#picture-length{
+    color: white;
+    font-size: 13px;
+  }
+
+  .arrow-icon{
+    color: white !important;
+  }
+  .limit-height{
+      max-height: 30px;
+  }
+  #close-button{
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: rgba(0,0,0,.5) ;
+    color: rgba(255,255,255,0.5);
+  }

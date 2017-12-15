@@ -14,6 +14,8 @@ export class PicturesComponent implements OnInit {
 
   constructor(private backendService : BackendService,private _router: ActivatedRoute, private router: Router) { }
   @ViewChild('scrollDrag',{read: DragScroll}) scroll_container;
+  picture_open = false // opens fullscreen image slider if set to true
+  picture_index;
   private pictures : PictureInterface[] = []
   ngOnInit() {
     console.log('pictures init()')
@@ -33,5 +35,8 @@ export class PicturesComponent implements OnInit {
                         })
     })
   }
-
+  showPicture(index){
+    this.picture_open = true;
+    this.picture_index = index
+  }
 }

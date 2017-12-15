@@ -4,7 +4,8 @@ import { TeamMemberInterfase, GroupInterface } from '../../interface.enum'
 import {BackendService} from '../../backend.service'
 import { SliderAnimation } from '../../animations/site.animation'
 import {Router } from '@angular/router'
-
+import { MyInfoComponent} from '../../modals/my-info/my-info.component'
+import { MatDialog} from '@angular/material'
 @Component({
   selector: 'app-my-team',
   templateUrl: './my-team.component.html',
@@ -14,7 +15,7 @@ import {Router } from '@angular/router'
 })
 export class MyTeamComponent implements OnInit {
 
-  constructor(private backendService : BackendService,private router :Router) { }
+  constructor(private dialog:MatDialog,private backendService : BackendService,private router :Router) { }
 private users : TeamMemberInterfase[] = [];
 @Output() selectUser  = new EventEmitter();
 private user_index = 0;
@@ -22,6 +23,12 @@ private user :TeamMemberInterfase;
 // animation trigers
 private right;
 private left;
+showInfo(user:TeamMemberInterfase){
+  this.dialog.open(MyInfoComponent,{
+    height:'600px',
+    data:user
+  })
+}
 loadGroups(user){
   this.backendService.selected_user = user
   this.backendService.getGroups(user._id)
@@ -56,6 +63,7 @@ private insert_next_image = ()=>{
     this.user = this.users[this.user_index];
     this.right = 'fly-in';
     this.loadGroups(this.user)
+    this.router.navigate(['/'])
   }
 /**#################### shows previous picture ################### */
 prevImg(e) {
@@ -76,6 +84,7 @@ private insert_Previous_Image = ()=>{
   this.user = this.users[this.user_index];
   this.left = 'fly-in'
   this.loadGroups(this.user)
+  this.router.navigate(['/'])
 }
 /**#################### swipe gestures ################### */
 

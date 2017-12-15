@@ -7,7 +7,6 @@ import { FormControl} from '@angular/forms'
 import { MatDialog } from '@angular/material'
 import { SendMailComponent } from '../../modals/send-mail/send-mail.component'
 import { ApearAnimation } from '../../animations/site.animation'
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 @Component({
   selector: 'app-job-store',
   templateUrl: './job-store.component.html',
@@ -15,7 +14,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   encapsulation: ViewEncapsulation.None,
   animations: ApearAnimation
 })
-export class JobStoreComponent implements OnInit,OnDestroy {
+export class JobStoreComponent implements OnInit {
 
   constructor(private dialog: MatDialog,private router : ActivatedRoute, private backendService:BackendService) { }
   @ViewChild('search') search_input : ElementRef
@@ -33,6 +32,7 @@ export class JobStoreComponent implements OnInit,OnDestroy {
  private previous_rows : TableRow[] = []
  private view_samata = false
  private nextPage // animation trigger
+ user_id
  ngOnDestroy(){
   this.nextPage = 'invisible'
  }
@@ -40,6 +40,7 @@ export class JobStoreComponent implements OnInit,OnDestroy {
     this.router.params.subscribe(params=>{
       this.group_index = params['group-index'];
       let user_id = params['user-id']
+      this.user_id = user_id
       this.backendService.getGroups(user_id)
                          .subscribe((groups:GroupInterface[])=>{
                            this.groups = groups

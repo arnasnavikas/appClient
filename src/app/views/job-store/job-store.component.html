@@ -3,17 +3,17 @@
   <mat-sidenav #sidenav  >
     <mat-nav-list >
 
-      <h3  matSubheader>Už darbus: {{samataMaterialPrice+samataWorkPrice }} <mat-icon>euro_symbol</mat-icon></h3>
-      <h3  matSubheader>Už medžiagas: {{samataWorkPrice }} <mat-icon>euro_symbol</mat-icon></h3>
-      <h3  matSubheader>Viso: {{samataMaterialPrice }} <mat-icon>euro_symbol</mat-icon></h3>
+      <h3  matSubheader>Už darbus: {{samataWorkPrice}} <mat-icon>euro_symbol</mat-icon></h3>
+      <h3  matSubheader>Už medžiagas: {{samataMaterialPrice }} <mat-icon>euro_symbol</mat-icon></h3>
+      <h3  matSubheader>Viso: {{samataMaterialPrice+samataWorkPrice }} <mat-icon>euro_symbol</mat-icon></h3>
       <mat-divider></mat-divider>
   
       <!-- ************* VIEW SAMATA BUTTON ************* -->
         <mat-list-item  (click)='sidenav.close()'>
-          <button mat-button color="warn" [disabled]="samata.length == 0" (click)='viewList()' matTooltip='Žiūrėti samatą'><mat-icon>view_list</mat-icon> Žiūrėti samata ({{samata.length}})</button>
+          <button mat-button color="warn" [disabled]="samata.length == 0" (click)='viewList()'><mat-icon>view_list</mat-icon> Žiūrėti samata ({{samata.length}})</button>
         </mat-list-item>
         <mat-list-item  (click)='sidenav.close()'>
-          <button mat-button color="primary" [disabled]='samata.length == 0' (click)='viewList()' matTooltip='Siūsti samatą'><mat-icon>send</mat-icon> Siūsti samatą </button>
+          <button mat-button color="primary" [disabled]='samata.length == 0' (click)='sendSamata()' ><mat-icon>send</mat-icon> Siūsti samatą </button>
         </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
@@ -58,7 +58,8 @@
               <!-- ************** CONTROLS FOR DESKTOP VIEW ************ -->
             
                 <div id='control-panel' fxLayout='column' fxLayoutWrap fxLayoutAlign='center center' fxHide.xs = 'true' >
-                    <mat-form-field style="width:180px;">
+                    <!-- row search  -->
+                  <mat-form-field style="width:180px;">
                       <span matPrefix><mat-icon>search</mat-icon></span>
                       <input #search  matInput type="text"  placeholder="Ieškoti" autocomplete="off">   
                       <button *ngIf="search.value != ''" matSuffix mat-icon-button  (click)="search.value = ''; rows = constRows">
@@ -129,9 +130,9 @@
                                                                   (keyup)='limitValue(row,"material_price")' min="0" autocomplete="off">
                                   </mat-form-field>
                                   <p *ngIf='row.iframeURL !=""' >Kur pirkti medžiagas? <button mat-icon-button><mat-icon>&#xE88F;</mat-icon></button> </p>
-                                  <p>Suma už darbus: {{(row.input*row.price) | currency:'EUR':true:'1.2-2'}} </p>
-                                  <p>Suma už medžiagas:{{(row.input*row.material_price*row.iseiga) | currency:'EUR':true:'1.2-2'}} </p>
-                                  <p>Viso :{{((row.input*row.price)+(row.input*row.material_price*row.iseiga )) | currency:'EUR':true:'1.2-2'}} </p>
+                                  <p>Suma už darbus: {{(row.input*row.price) | currency:'EUR':"symbol":'1.2-2'}} </p>
+                                  <p>Suma už medžiagas:{{(row.input*row.material_price*row.iseiga) | currency:'EUR':"symbol":'1.2-2'}} </p>
+                                  <p>Viso :{{((row.input*row.price)+(row.input*row.material_price*row.iseiga )) | currency:'EUR':"symbol":'1.2-2'}} </p>
                     
                                 </form>
                           </mat-card-content>

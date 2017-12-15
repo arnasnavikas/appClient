@@ -3,6 +3,7 @@ import { GroupInterface,
          TeamMemberInterfase,
          GalerijaInterface,
          PictureInterface,
+         city,
          TableRow } from "./interface.enum"
 import { Http,Response,Headers,RequestOptions } from "@angular/http";  
 import { Observable } from "rxjs/Rx";
@@ -93,7 +94,20 @@ getOneMember(user_id){
                   .map(this.extractData)
                   .catch(this.handleError);
 }
-
+// download json with Lithuania city's
+searchAdress(){
+  let url = '../../../assets/lietuvos-miestai.json';
+  return this.http.get(url)
+                  .map(this.extractData)
+                  .catch(this.handleError)
+}
+// send mail
+sendMail(mailForm){
+  let body = JSON.stringify(mailForm);
+  return this.http.post(environment.sendMailUrl,'data='+body,this.options)
+                  .map(this.extractData)
+                  .catch(this.handleError)
+}
 /**####################################################################
  *             ----SERVER RESPONSE FUNCTIONS---- 
  *#####################################################################*/

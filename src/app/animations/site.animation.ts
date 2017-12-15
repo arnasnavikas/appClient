@@ -3,6 +3,17 @@ import {trigger, Output,
   
 
 export const SliderAnimation = [
+    trigger('show-info',[
+      state('close', style({opacity:0,transform: 'translateY(100%) scale(0)'})),
+      state('open', style({opacity:1,transform: 'translateY(0 )'})),
+      transition('* => open', [animate('.2s ease-in')]),
+      transition('open => *', [animate('.2s ease-in')])
+    ]),
+    trigger('open-close-gallery',[
+      state('close', style({transform: 'translateX(-100%) scale(0)'})),
+      transition('void => *', [style({transform: 'translateX(0) scale(0)'}),animate('.2s ease-in')]),
+      transition('* => close', [animate('.2s ease-in')])
+    ]),
     trigger('flyRight', [
       state('ready', style({opacity: 0,transform: 'translateX(-100%)' })),
       state('fly-in', style({opacity: 1,transform: 'translateX(0)' })),

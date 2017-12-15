@@ -1,0 +1,85 @@
+ <div fxLayout='column' fxLayoutAlign='center' style="position:relative">
+
+  <button fxHide.gt-xs='true' mat-mini-fab id="close-button" (click)='dialogRef.close()'><mat-icon>close</mat-icon></button>
+  <div fxLayout fxLayoutAlign='center center' style="width:100%">
+    <div *ngIf="pictures.length > 0" fxLayout fxLayoutWrap fxLayoutAlign='center center' id='user-pictures'>   
+          <div (click)="prevImg($event)"  class="left-button" >
+            <button  mat-mini-fab style='background:black !important;opacity:.5;'><mat-icon class='arrow-icon'>&#xE5CB;</mat-icon></button> 
+          </div>
+          <img [@flyRight]='right' (swipeleft)='swipe($event)'  (@flyRight.done)="right_animation_done($event)"  (click)='showInfo($event)'
+              [@flyLeft]='left'   (swiperight)='swipe($event)' (@flyLeft.done)="left_animation_done($event)"  id="picture-el" [src]="_source" alt="">
+          <div (click)=nextImg($event) class="right-button" >
+            <button mat-mini-fab style='background:black !important;opacity:.5;' ><mat-icon class='arrow-icon'>&#xE315;</mat-icon></button>
+          </div>
+          <div fxLayout fxLayoutAlign='space-around center' id="image-footer" >
+            <p id="picture-date">{{picture_taken | date: 'yyyy.MM.dd'}}</p>
+            <p id="picture-length" >{{imgIndex+1}} / {{pictures.length}}</p>
+          </div>
+      </div>
+    </div>
+      <mat-card style="padding:10px !important">
+      <mat-card-title style="text-align:center">Statusas
+      </mat-card-title>
+      <mat-card-subtitle>Įrašas atnaujintas: {{data.updated | date :"yyyy.MM.dd"}}</mat-card-subtitle>
+              <span [ngSwitch]="data.status" class='mat-typography'>
+                <div fxLayout fxLayoutAlign='space-between center'  *ngSwitchCase="0" class='limit-height' >
+                  <span class='indicator red'></span>
+                  <div fxLayout='column' fxLayoutAlign='center'>
+                    <div class='mat-typography'  fxLayout fxLayoutAlign='space-between center'>
+                      <mat-icon mat-list-icon>&#xE916;</mat-icon>
+                      Užimtas iki {{data.date | date:'yyyy-MM-dd'}}
+                    </div>
+                    <div class='mat-typography'  fxLayout fxLayoutAlign='space-between center'>
+                      <mat-icon mat-list-icon>timer</mat-icon>
+                      Laukimo periodas: {{data.days_left}} dien<span *ngIf="data.days_left > 1">ų</span><span *ngIf="data.days_left == 1">a</span>
+                    </div>
+                  </div>
+                </div>
+                <div fxLayout fxLayoutAlign='space-between center' *ngSwitchCase="1" class='limit-height' >
+                  <span class='indicator orange'></span>
+                  <div fxLayout='column' fxLayoutAlign='center'>
+                    <div class='mat-typography'  fxLayout fxLayoutAlign='space-between center'>
+                        <mat-icon mat-list-icon>&#xE916;</mat-icon>
+                        Atotogauju iki {{data.date | date:'yyyy-MM-dd'}}
+                    </div>
+                    <div class='mat-typography'  fxLayout fxLayoutAlign='space-between center'>
+                        <mat-icon mat-list-icon>timer</mat-icon>
+                        Laukimo periodas: {{data.days_left}} dien<span *ngIf="data.days_left > 1">ų</span><span *ngIf="data.days_left == 1">a</span>
+                    </div>
+                  </div>
+                </div>
+                <div fxLayout fxLayoutAlign='space-between center' *ngSwitchCase="2" class='limit-height' >
+                  <span class='indicator green'></span>
+                  Laisvas 
+                </div>
+                <p *ngSwitchDefault>
+                
+                </p>
+            </span>
+      <mat-card-content style="max-width:400px;">{{data.message}}  </mat-card-content>
+    </mat-card>
+    <mat-list >
+        <mat-divider></mat-divider>
+        <mat-list-item  class="limit-height">
+          <mat-icon mat-list-icon>person</mat-icon>
+          <p mat-line> {{data.name+' '+data.forname}}  </p>
+        </mat-list-item>
+        <mat-list-item  class="limit-height">
+          <mat-icon mat-list-icon>cake</mat-icon>
+          <p mat-line> {{data.age}} metai  </p>
+        </mat-list-item>
+        <mat-list-item  class="limit-height">
+          <mat-icon mat-list-icon>school</mat-icon>
+          <p mat-line> {{data.profesion}}  </p>
+        </mat-list-item>
+        <mat-list-item  class="limit-height">
+          <mat-icon mat-list-icon>contact_phone</mat-icon>
+          <p mat-line> {{data.phone}}  </p>
+        </mat-list-item>
+        <mat-list-item  class="limit-height">
+          <mat-icon mat-list-icon>contact_mail</mat-icon>
+          <p mat-line> {{data.email}}  </p>
+        </mat-list-item>
+      </mat-list>
+</div>
+    

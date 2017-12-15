@@ -5,7 +5,8 @@
   </div> 
   <div fxLayout fxLayoutAlign='space-around center'
       fxLayoutAlign ='space-around center'
-      matTooltip='Visa reikalinga informacija' 
+      matTooltip='Daugiau info ...'
+      (click)='showInfo(user)' 
       [@flyRight]='right'
       (swipeleft)='swipe($event)'
       (@flyRight.done)="right_animation_done($event)"

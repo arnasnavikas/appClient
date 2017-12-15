@@ -10,9 +10,13 @@ export interface TeamMemberInterfase{
     message:  string,
     date?:     Date,
     days_left:  number;  
-    folder_name: string
+    folder_name: string,
+    updated: Date
 }
-
+export interface city{
+    name: string,
+    value: string
+}
 export interface GroupInterface{
     _v?: number,
     _id?: string,

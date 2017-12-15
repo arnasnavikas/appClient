@@ -12,7 +12,7 @@ var address = 'localhost:3000'
 export const environment = {
   production: false,
                 /** sends mail */
-        sendMailUrl : 'http://'+address+'/sendMail',
+        sendMailUrl : 'http://'+address+'/mail/send',
 /***************************** GALLERY  ************************* */
                 /** load gallerys */
        get_gallerys : 'http://'+address+'/gallery/user-id/',

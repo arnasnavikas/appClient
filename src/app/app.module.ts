@@ -18,6 +18,8 @@ import { BackendService } from "./backend.service";
 import { PicturesComponent } from './views/pictures/pictures.component';
 import { JobStoreComponent } from './views/job-store/job-store.component';
 import { SendMailComponent } from './modals/send-mail/send-mail.component';
+import { MyInfoComponent } from './modals/my-info/my-info.component';
+import { PictureSliderComponent } from './views/picture-slider/picture-slider.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,9 @@ import { SendMailComponent } from './modals/send-mail/send-mail.component';
     MyTeamComponent,
     PicturesComponent,
     PageNotFoundComponent,
-    SendMailComponent
+    SendMailComponent,
+    MyInfoComponent,
+    PictureSliderComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,7 @@ import { SendMailComponent } from './modals/send-mail/send-mail.component';
     AppRoutingModule,
     DragScrollModule  
   ],
-  entryComponents:[SendMailComponent],
+  entryComponents:[SendMailComponent,MyInfoComponent],
   providers: [BackendService],
   bootstrap: [AppComponent]
 })

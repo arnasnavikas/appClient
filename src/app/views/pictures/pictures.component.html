@@ -1,6 +1,6 @@
 
    <div fxLayout fxLayoutWrap fxLayoutAlign='space-around' style="overflow:auto">
-      <mat-card *ngFor="let picture of pictures" class="picture-card">
+      <mat-card *ngFor="let picture of pictures;let i = index" class="picture-card">
               <mat-card-header fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
                   <div fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
                       <mat-card-subtitle>Fotografuota: {{picture.created | date:'yyyy-MM-dd'}}</mat-card-subtitle>
@@ -10,7 +10,7 @@
                       <p>{{picture.gallery_name}}</p>
                   </div>
               </mat-card-header>
-              <div fxLayout fxLayoutAlign='center center' class="image-container" >
+              <div fxLayout fxLayoutAlign='center center' (click)='showPicture(i)' class="image-container" >
                   <img class="my-image"  [src]="picture.imgURL" >
               </div>
               <mat-card-content style="height:45px;">
@@ -30,4 +30,4 @@
                   </mat-card-content>
       </mat-card>
   </div>
-  
+  <app-picture-slider *ngIf="picture_open" [picture]='pictures' [index]='picture_index' (close)='picture_open = false'></app-picture-slider>

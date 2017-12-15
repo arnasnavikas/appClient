@@ -1,0 +1,21 @@
+<div [@open-close-gallery]='gallery_animation' (@open-close-gallery.done)='closeGallery($event)' id='for-animation'> 
+    <div id="close-button" title="Išeiti">
+      <mat-icon (click)='gallery_animation = "close"'>close</mat-icon>
+    </div>
+    <div id='opacity-background'  ></div>       
+    <div *ngIf='pictures.length > 0' id="fixed-container" (click)='gallery_animation = "close"' >
+      <div (click)="prevImg($event)"  id="left-button" >
+        <button  mat-fab style='background:black !important;opacity:.5;'><mat-icon class='arrow-icon'>&#xE5CB;</mat-icon></button> 
+      </div>
+      <img [@flyRight]='right' (swipeleft)='swipe($event)'  (@flyRight.done)="right_animation_done($event)"  (click)='showInfo($event)'
+           [@flyLeft]='left'   (swiperight)='swipe($event)' (@flyLeft.done)="left_animation_done($event)"  id="picture-el" [src]="_source" alt="">
+      <div (click)=nextImg($event) id="right-button" >
+        <button mat-fab style='background:black !important;opacity:.5;' ><mat-icon class='arrow-icon'>&#xE315;</mat-icon></button>
+      </div>
+      <div [@show-info]='infoShowed' #imageInfo id="image-footer" >
+        <p id="galerijos-pavadimas">{{gallery_name}}</p>
+        <p id="footer-info" >{{imgIndex+1}} / {{pictures.length}} Paveikslelis</p>
+        <p style="color:white;">{{image_description}}</p>
+      </div>
+    </div>
+  </div>

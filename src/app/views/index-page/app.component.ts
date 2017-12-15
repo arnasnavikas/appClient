@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { BackendService } from '../../backend.service'
 import { Location } from '@angular/common'
 import { MatDialog } from '@angular/material'
@@ -11,7 +11,7 @@ import { ApearAnimation } from '../../animations/site.animation'
   styleUrls: ['./app.component.css'],
   animations: ApearAnimation
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,private router:Router,private dialog : MatDialog,private location:Location,public backendService :BackendService){
     router.events
     .filter(event => event instanceof NavigationEnd)
@@ -24,14 +24,14 @@ export class AppComponent {
       // You only receive NavigationEnd events
     });
   }
-
+ngOnInit(){
+  console.log('init fired')
+}
  sendMail(){
    this.dialog.open(SendMailComponent,{
    })
  }
  animationDone(e){
-   console.log(e)
-
    if(e.toState == 'invisible'){
        this.router.navigate(this.backendService.router_params)
        this.backendService.animationTriger = 'visible'
