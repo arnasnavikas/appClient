@@ -11,9 +11,9 @@
           <div (click)=nextImg($event) class="right-button" >
             <button mat-mini-fab style='background:black !important;opacity:.5;' ><mat-icon class='arrow-icon'>&#xE315;</mat-icon></button>
           </div>
-          <div fxLayout fxLayoutAlign='space-around center' id="image-footer" >
-            <p id="picture-date">{{picture_taken | date: 'yyyy.MM.dd'}}</p>
-            <p id="picture-length" >{{imgIndex+1}} / {{pictures.length}}</p>
+          <div  fxLayout fxLayoutAlign='space-around center' id="image-footer" >
+            <p class='mat-typography' id="picture-date">{{picture_taken | date: 'yyyy.MM.dd'}}</p>
+            <p class='mat-typography' id="picture-length" >{{imgIndex+1}} / {{pictures.length}}</p>
           </div>
       </div>
     </div>

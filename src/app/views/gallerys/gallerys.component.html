@@ -29,7 +29,7 @@
                 </div>
             </mat-card-header>
             <div fxLayout fxLayoutAlign='center center' (click)='backendService.setParams("/paveiksleliai",gallery.user_id,gallery._id)' class="image-container" >
-                <img class="my-image"  [src]="gallery.index_img" >
+                <img class="my-image" *ngIf="gallery.index_img"  [src]="gallery.index_img.imgURL" >
             </div>
             <mat-card-content style="height:45px;">
                     <span [ngSwitch]="true">

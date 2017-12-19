@@ -186,9 +186,9 @@
     right: 0;
     top: 0;
     color: white;
+    background: rgba(0,0,0,.6);
     margin: 10px;
     z-index: 5;
-    cursor: pointer;
   }
   .arrow-icon{
     color: white !important;
