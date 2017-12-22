@@ -58,6 +58,7 @@ export class MyInfoComponent implements OnInit {
         this.imgIndex += 1;
       this.image_description = this.pictures[this.imgIndex].description;
       this._source = this.pictures[this.imgIndex].imgURL;
+      this.picture_taken = this.pictures[this.imgIndex].created
       this.right = 'fly-in';
     }
   /**#################### shows previous picture ################### */
@@ -78,6 +79,7 @@ export class MyInfoComponent implements OnInit {
       this.imgIndex -= 1;
     this.image_description = this.pictures[this.imgIndex].description;
     this._source = this.pictures[this.imgIndex].imgURL;
+    this.picture_taken = this.pictures[this.imgIndex].created
     this.left = 'fly-in'
   }
   /**################################################################# */

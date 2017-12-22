@@ -19,7 +19,7 @@
   </mat-sidenav>
     
   <mat-sidenav-content >
-    <div fxLayout fxLayoutWrap fxLayoutAlign='space-around' style="width:100%;">
+    <div fxLayout fxLayoutWrap fxLayoutAlign='space-between' style="width:100%;">
               <!-- ************** CONTROLS FOR MOBILE VIEW ************ -->
       <div  fxHide.gt-xs='true' fxLayout fxLayoutWrap fxLayoutAlign='center' class="mobile-view-control">
         <!-- BACK FROM VIEW SAMATA VIEW BUTTON -->
@@ -95,7 +95,7 @@
                     </div>
                   
                       <!-- SAMATA CARD  -->
-                    <div id="cards-container" *ngIf="rows.length > 0" fxLayout fxLayoutWrap fxLayoutAlign='center center'>
+                    <div id="cards-container" *ngIf="rows.length > 0" fxLayout fxLayoutWrap fxLayoutAlign='space-around '>
                       <mat-card *ngFor='let row of rows' class="job-card">
                           <button *ngIf="view_samata"  (click)='removeRow(row)' class="top-right" matTooltip='Ištrinti' mat-icon-button > <mat-icon>&#xE5C9;</mat-icon></button>
                           

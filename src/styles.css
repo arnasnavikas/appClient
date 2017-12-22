@@ -42,6 +42,7 @@ app-job-price
 {
     position: relative;
     width: 100%;
+    height: 100%;
     overflow: auto;
 }
 @media only screen and (max-width: 600px) {
@@ -99,18 +100,6 @@ app-job-price
   -ms-flex-pack: left;
   justify-content: left;
 }
-.scroll-main-container{
-    display: flex;  
-    min-height:100%;
-    position: relative;
-    justify-content: center;
-    /* min-height: calc(100% + 19px); */
-    
-}
-.scroll-container{
-    display: flex;
-}
-
   .arrow-icon{
     color: white;
   }

@@ -1,45 +1,47 @@
-<mat-tab-group>
+<span *ngIf="!sendingMail">
+  <mat-tab-group>
     <mat-tab label="Žinutė" style="width:100%;">
-                <form fxLayout='column'  fxLayoutWrap fxLayoutAlign="center" [formGroup]='mailForm' style="width:100%">
-                  <mat-form-field class="mail-input" >
-                    <input matInput placeholder="Vardas"  autocomplete="off" formControlName="name" required>
-                    <mat-error *ngIf="mailForm.controls['name'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
-                  </mat-form-field>
-                  <mat-form-field class="mail-input">
-                    <input [errorStateMatcher]="matcher" autocomplete="off" matInput placeholder="El. Paštas" formControlName="email" required>
-                    <mat-error *ngIf="mailForm.controls['email'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
-                    <mat-error *ngIf="mailForm.controls['email'].hasError('pattern') && !mailForm.controls['email'].hasError('required')">Netinkamas formatas</mat-error>
-                  </mat-form-field>
-                  <mat-form-field class="example-full-width">
-                      <input type="text" placeholder="Miestas" aria-label="Number" matInput formControlName="address" [matAutocomplete]="auto">
-                      <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let addr of address_result | async" [value]="addr.name">
-                          {{ addr.name }}
-                        </mat-option>
-                      </mat-autocomplete>
-                    <mat-error *ngIf="mailForm.controls['address'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
-                    </mat-form-field>
-                  
-                  <mat-form-field class="mail-input">
-                    <textarea matInput placeholder="Žinutė" formControlName="message" required></textarea>
-                    <mat-error *ngIf="mailForm.controls['message'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
-                  </mat-form-field>
-                </form>
-                         
-          </mat-tab>
-        <mat-tab *ngIf='data' label="Samata">
-          <mat-list role="list" style="max-height: 300px">
-              <mat-list-item fxLayout fxLayoutAlign='space-between center' *ngFor="let row of data" role="listitem">
-                <mat-icon mat-list-icon>euro_symbol</mat-icon>
-                <h4 mat-line>{{row.name}}</h4>
-                <p mat-line>viso: {{row.material_total_price+row.job_total_price}} eurų</p>
-              </mat-list-item>
-          </mat-list>
-        </mat-tab>
-      </mat-tab-group>
-<div mat-dialog-actions>
-  <button mat-button (click)='sendMail()' tabindex="2"><mat-icon>send</mat-icon> Siūsti</button>
-  <button mat-button (click)="dialogRef.close()" tabindex="-1">Atšaukti</button>
-</div>
-
+      <form fxLayout='column'  fxLayoutWrap fxLayoutAlign="center" [formGroup]='mailForm' style="width:100%">
+        <mat-form-field class="mail-input" >
+          <input matInput placeholder="Vardas"  autocomplete="off" formControlName="name" required>
+          <mat-error *ngIf="mailForm.controls['name'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="mail-input">
+          <input [errorStateMatcher]="matcher" autocomplete="off" matInput placeholder="El. Paštas" formControlName="email" required>
+          <mat-error *ngIf="mailForm.controls['email'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
+          <mat-error *ngIf="mailForm.controls['email'].hasError('pattern') && !mailForm.controls['email'].hasError('required')">Netinkamas formatas</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input type="text" placeholder="Miestas" aria-label="Number" matInput formControlName="address" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let addr of address_result | async" [value]="addr.name">
+                {{ addr.name }}
+              </mat-option>
+            </mat-autocomplete>
+          <mat-error *ngIf="mailForm.controls['address'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
+          </mat-form-field>
+        
+        <mat-form-field class="mail-input">
+          <textarea matInput placeholder="Žinutė" formControlName="message" required></textarea>
+          <mat-error *ngIf="mailForm.controls['message'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
+        </mat-form-field>
+      </form>
+    </mat-tab>
+    <!-- ********** SAMATA ********* -->
+    <mat-tab *ngIf='data' label="Samata">
+      <mat-list role="list" style="max-height: 300px">
+          <mat-list-item fxLayout fxLayoutAlign='space-between center' *ngFor="let row of data" role="listitem">
+            <mat-icon mat-list-icon>euro_symbol</mat-icon>
+            <h4 mat-line>{{row.name}}</h4>
+            <p mat-line>viso: {{row.material_total_price+row.job_total_price}} eurų</p>
+          </mat-list-item>
+      </mat-list>
+    </mat-tab>
+  </mat-tab-group>
+  <div mat-dialog-actions>
+    <button mat-button (click)='sendMail()' tabindex="2"><mat-icon>send</mat-icon> Siūsti</button>
+    <button mat-button (click)="dialogRef.close()" tabindex="-1">Atšaukti</button>
+  </div>
+</span>
+<mat-spinner *ngIf="sendingMail" style="width:50px;height:50px"></mat-spinner>
 

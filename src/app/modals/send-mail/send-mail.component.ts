@@ -27,6 +27,7 @@ export class SendMailComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,private backendService:BackendService) { }
     matcher = new MyErrorStateMatcher();
     private address_result: Observable<Object[]>
+    sendingMail = false;
     options 
     private mailForm : FormGroup = this.fb.group({ name:this.fb.control('',[Validators.required]),
                                                  email: this.fb.control('',[Validators.required,Validators.pattern(new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/))]),
@@ -68,6 +69,7 @@ export class SendMailComponent implements OnInit {
       return;
     }
     if(this.mailForm.valid){
+      this.sendingMail = true
       console.log(this.mailForm.value)
       this.backendService.sendMail(this.mailForm.value)
                           .subscribe(data=>{
