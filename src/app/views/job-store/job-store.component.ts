@@ -2,36 +2,39 @@ import { Component, OnInit, ViewEncapsulation,ViewChild,ElementRef,ViewChildren 
 import { ActivatedRoute } from '@angular/router'
 import { BackendService} from '../../backend.service'
 import { GroupInterface, TableRow } from '../../interface.enum';
-import { Observable} from 'rxjs'
+import { Observable} from 'rxjs/Observable'
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime'
 import { FormControl} from '@angular/forms'
 import { MatDialog } from '@angular/material'
 import { SendMailComponent } from '../../modals/send-mail/send-mail.component'
-import { ApearAnimation } from '../../animations/site.animation'
+import { fadeInAnimation } from '../../animations/site.animation'
 @Component({
   selector: 'app-job-store',
   templateUrl: './job-store.component.html',
   styleUrls: ['./job-store.component.css'],
   encapsulation: ViewEncapsulation.None,
-  animations: ApearAnimation
+  animations: fadeInAnimation,
+  host: {'[@fadeInAnimation]':''}
 })
 export class JobStoreComponent implements OnInit {
 
   constructor(private dialog: MatDialog,private router : ActivatedRoute, private backendService:BackendService) { }
   @ViewChild('search') search_input : ElementRef
-  @ViewChild('searchMobile') searchMobile : ElementRef
+  // @ViewChild('searchMobile') searchMobile : ElementRef
   @ViewChildren('rowName') row_name // dom element reference
- private rows : TableRow[] = [] //displayed rows
- private filtered_rows : TableRow[] = [] //constRows filtered by groups_id
- private constRows : TableRow[] = [] // all user rows 
- private groups : GroupInterface[] = []
- private samata = [] // selected rows 
- private samataWorkPrice = 0
- private samataMaterialPrice = 0
- private groupList = new FormControl();
- private group_index
- private previous_rows : TableRow[] = []
- private view_samata = false
- private nextPage // animation trigger
+ public rows : TableRow[] = [] //displayed rows
+ public filtered_rows : TableRow[] = [] //constRows filtered by groups_id
+ public constRows : TableRow[] = [] // all user rows 
+ public groups : GroupInterface[] = []
+ public samata = [] // selected rows 
+ public samataWorkPrice = 0
+ public samataMaterialPrice = 0
+ public groupList = new FormControl();
+ public group_index
+ public previous_rows : TableRow[] = []
+ public view_samata = false
+ public nextPage // animation trigger
  user_id
  ngOnDestroy(){
   this.nextPage = 'invisible'
@@ -149,12 +152,8 @@ sendSamata(){
   })
 }
     ngAfterViewInit(){
-      console.log(this.search_input)
-      let inputs = [ this.search_input.nativeElement,
-                     this.searchMobile.nativeElement]
       /****************************** FILTER ROWS BY NAME FROM INUT ****************************** */
-      for(let elem of inputs){
-      Observable.fromEvent(elem,"keydown")
+      Observable.fromEvent(this.search_input.nativeElement,"keydown")
                             .debounceTime(300)
                             .map((input:any)=>{return input.target.value.trim().toLowerCase().replace(/\W/gi,'')})
                             .subscribe(search_word=>{
@@ -173,27 +172,33 @@ sendSamata(){
                               }
                             });
       /****************************** HIGHLIGHT MATCHED SEARCH VALUE  ****************************** */
-      Observable.fromEvent(elem,"input")
+      Observable.fromEvent(this.search_input.nativeElement,"input")
                             .debounceTime(400)
                             .map((input:any)=>{return input.target.value.trim().toLowerCase().replace(/\W/gi,'')})
                             .subscribe(search_word=>{
-                              console.log('go')
-                              let expr = new RegExp(search_word,'gi')
-                              if(this.rows.length >0){
-                                   for(let span_el of this.row_name._results){
-                                     let row_name = span_el.nativeElement.innerText
-                                     let highlight= row_name.match(expr) // <= finds all parts of matched text and return it in array
-                                     if(highlight){
-                                       for(let i of highlight){
-                                         span_el.nativeElement.innerHTML =row_name.replace(i,'<span style="background: yellow">'+i+'</span>')
-                                       }
-                                     }
-                                   }
-                                 }
+                              this.mark_word(search_word)
                             });
-      }
     }
-    
+    public mark_word = (word)=>{
+      console.log('go')
+      let expr = new RegExp(word,'gi')
+      if(this.rows.length >0){
+           for(let span_el of this.row_name._results){
+             let row_name = span_el.nativeElement.innerText
+             let highlight= row_name.match(expr) // <= finds all parts of matched text and return it in array
+             if(highlight){
+               for(let i of highlight){
+                 span_el.nativeElement.innerHTML =row_name.replace(i,'<span style="background: yellow">'+i+'</span>')
+               }
+             }
+           }
+        }
+    }
+    private resetSearch(target){
+      target.value = ''
+      this.rows = this.constRows
+      this.mark_word('')
+    }
     /** ********* LIMITS INPUT UP TO 5 NUMBER ************* */
     limitValue(row:TableRow,type){
       

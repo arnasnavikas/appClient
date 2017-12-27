@@ -103,4 +103,10 @@ app-job-price
   .arrow-icon{
     color: white;
   }
-  /* index page slider style end */
+  /* tooltip class with bigger font size */
+  .show-more{
+    font-size: 15px;
+}
+.team-modal{
+    height: 100%;
+}

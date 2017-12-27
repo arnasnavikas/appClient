@@ -6,7 +6,9 @@ import { GroupInterface,
          city,
          TableRow } from "./interface.enum"
 import { Http,Response,Headers,RequestOptions } from "@angular/http";  
-import { Observable } from "rxjs/Rx";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch'
 import { environment } from '../environments/environment'
 import { MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router'
@@ -18,22 +20,9 @@ export class BackendService {
   private options = new RequestOptions({ headers: this.headers });
   
   public selected_user :TeamMemberInterfase
-  // nimation between pages
-  public animationTriger
-  public router_params
 
   public groups: GroupInterface[] =[]
-// for animation 
-  setParams(...args){
-    console.log(args)
-    console.log(this.router_params)
-    if(JSON.stringify(this.router_params) === JSON.stringify(args)){
-      console.log('same params')
-      return;
-    }
-    this.animationTriger = 'invisible'
-    this.router_params = args
-  }
+
   public showSuccessMessage =(message:string,button_message:string,duration:number)=>{
     this.snackBar.open(message,button_message, {
       duration: duration,

@@ -19,13 +19,14 @@ export class MyTeamComponent implements OnInit {
 private users : TeamMemberInterfase[] = [];
 @Output() selectUser  = new EventEmitter();
 private user_index = 0;
-private user :TeamMemberInterfase;
+public user :TeamMemberInterfase;
 // animation trigers
 private right;
 private left;
 showInfo(user:TeamMemberInterfase){
   this.dialog.open(MyInfoComponent,{
-    height:'600px',
+    maxHeight:'90%',
+    panelClass: 'team-modal',
     data:user
   })
 }

@@ -4,13 +4,13 @@
             class="job-container">
             <mat-card class="group-card" 
                     *ngFor='let group of backendService.groups;let i = index'>
-                    <mat-card-header>
-                    <mat-card-title>{{group.name}}</mat-card-title>
-                    <mat-card-subtitle fxLayout fxLayoutAlign='center center' >
-                        <mat-icon>&#xE412;</mat-icon>{{" "+group.gallerys}}  galerij<span *ngIf="group.gallerys > 1">os</span><span *ngIf="group.gallerys == 1">a</span> 
-                    </mat-card-subtitle>
+                    <mat-card-header fxLayout fxLayoutAlign='center center'>
+                        <mat-card-title style="font-weight:bold">{{group.name}}</mat-card-title>
+                        <mat-card-subtitle fxLayout fxLayoutAlign='center center' >
+                            <mat-icon>photo_library</mat-icon>{{" "+group.gallerys}}  galerij<span *ngIf="group.gallerys > 1">os</span><span *ngIf="group.gallerys == 1">a</span> 
+                        </mat-card-subtitle>
                     </mat-card-header>  
-                    <div fxLayout fxLayoutAlign='center center' (click)='backendService.setParams("/galerijos",group.user_id,i)' class="image-container" >
+                    <div fxLayout fxLayoutAlign='center center' [routerLink]='["/galerijos",group.user_id,i]' class="image-container" >
                         <img class="my-image" *ngIf="group.imgURL[0]" [src]="group.imgURL[0].imgURL" [alt]="group.imgURL[0].name">
                     </div>
                     <mat-card-content style="height:45px;">
@@ -21,14 +21,14 @@
                             </span>
                         </p>
                         <p *ngSwitchCase="group.description.length<50">
-                            maziau nei 50
+                            {{group.description}}
                         </p>
                         <p *ngSwitchDefault>
                         </p>
                         </span>
                     </mat-card-content>
                     <mat-card-actions>
-                        <button mat-button (click)='backendService.setParams(group.user_id,i)'><mat-icon>&#xE926;</mat-icon>Skaičiuoti kainą</button>
+                        <button mat-button [routerLink]='[group.user_id,i]'><mat-icon>euro_symbol</mat-icon>Skaičiuoti kainą</button>
                     </mat-card-actions>
                 </mat-card>
     </div>

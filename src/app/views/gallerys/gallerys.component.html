@@ -1,22 +1,25 @@
 <!-- filter gallerys -->
-<div fxLayout fxLayoutWrap fxLayoutAlign='center center' id="filter-gallerys">
-    <mat-form-field >
-        <mat-select style="color:white !important"  (selectionChange)='filterGallerys($event)'   placeholder="Kategotijos" [formControl]="groupList" multiple>
-            <mat-select-trigger style="color:white !important">
-                {{groupList.value && groupList.value[0] ? groupList.value[0].name : ''}}
-                <span  *ngIf="groupList.value?.length > 1" class="example-additional-selection">
-                +{{groupList.value.length - 1}}
-                </span>
-            </mat-select-trigger>
-            <mat-option class="gallery-group-list" *ngFor="let group of groups; let i = index" [value]="group" >
-                    <mat-icon>photo_library</mat-icon>{{group.name}} <span class="gallery-number">{{group.gallerys}}</span>
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-checkbox (change)='selectAll($event)' >Pažymėti visas</mat-checkbox>
+<div fxHide.xs='true' id='filter-container' fxLayout fxLayoutAlign='center center'>
+    <div fxLayout fxLayoutWrap fxLayoutAlign='center center' id="filter-gallerys">
+        <mat-form-field >
+            <mat-select style="color:white !important"  (selectionChange)='filterGallerys($event)'   placeholder="Kategotijos" [formControl]="groupList" multiple>
+                <mat-select-trigger style="color:white !important">
+                    {{groupList.value && groupList.value[0] ? groupList.value[0].name : ''}}
+                    <span  *ngIf="groupList.value?.length > 1" class="example-additional-selection">
+                    +{{groupList.value.length - 1}}
+                    </span>
+                </mat-select-trigger>
+                <mat-option class="gallery-group-list" *ngFor="let group of groups; let i = index" [value]="group" >
+                        <mat-icon>photo_library</mat-icon>{{group.name}} <span class="gallery-number">{{group.gallerys}}</span>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-checkbox (change)='selectAll($event)' >Pažymėti visas</mat-checkbox>
+    </div>
 </div>
-<span fxLayout class="empty-spacer"></span>
-<div fxLayout fxLayoutWrap fxLayoutAlign='space-around ' >
+
+<span  fxHide.xs='true' fxLayout class="empty-spacer"></span>
+<div fxLayout fxLayoutWrap fxLayoutAlign='space-around ' id="gallerys-container" >
     <mat-card *ngFor="let gallery of gallerys" class="gallery-card">
             <mat-card-header fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
                 <div fxLayout='column' style="width:100%" fxLayoutAlign='center center'>
@@ -28,7 +31,7 @@
                     <p>{{gallery.name}}</p>
                 </div>
             </mat-card-header>
-            <div fxLayout fxLayoutAlign='center center' (click)='backendService.setParams("/paveiksleliai",gallery.user_id,gallery._id)' class="image-container" >
+            <div fxLayout fxLayoutAlign='center center' [routerLink]='["/paveiksleliai",gallery.user_id,gallery._id]' class="image-container" >
                 <img class="my-image" *ngIf="gallery.index_img"  [src]="gallery.index_img.imgURL" >
             </div>
             <mat-card-content style="height:45px;">

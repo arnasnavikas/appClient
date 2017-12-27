@@ -6,7 +6,6 @@ import { HttpModule} from '@angular/http';
 import { MaterialModule } from './modules/material.module';
 import { FlexLayoutModule} from '@angular/flex-layout';
 import { AppRoutingModule } from './modules/app-routing.module'
-import { DragScrollModule } from 'ngx-drag-scroll'
 // components
 import { AppComponent } from './views/index-page/app.component';
 import { GallerysComponent } from './views/gallerys/gallerys.component';
@@ -41,7 +40,6 @@ import { PictureSliderComponent } from './views/picture-slider/picture-slider.co
     FlexLayoutModule,
     HttpModule,
     AppRoutingModule,
-    DragScrollModule  
   ],
   entryComponents:[SendMailComponent,MyInfoComponent],
   providers: [BackendService],

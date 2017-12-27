@@ -1,10 +1,15 @@
 .job-card{
     width: 200px;
-    margin-left: 10px;
     margin-bottom: 10px;
     height:-webkit-fit-content;
     height:-moz-fit-content;
-    height:fit-content
+    height:fit-content;
+}
+.job-card:nth-child(even){
+    margin-left: 10px;
+}
+.job-card:nth-child(odd){
+    margin-left: 10px;
 }
 /* card input */
 .full-width{
@@ -23,20 +28,22 @@ input{
     #cards-container{
         width: calc(100% - 200px);
         margin-left: 200px;
-        padding-top: 20px;
+        padding: 10px;
     }
     #control-panel{
-          padding-top: 10px;
-          position: fixed;
-          left: 0;
-          top: 60px;
-          width: 200px;
+        padding: 10px;
+        position: fixed;
+        left: 10px;
+        top: 60px;
+        width: 200px;
+        background: white;
+        border-radius: 20px;
       }
   }
   @media only screen and (max-width: 600px) {
     #cards-container{
         width: 100% ;
-        padding-top: 170px;
+        /* padding-top: 170px; */
         margin-top: 10px;
     }
     #control-panel{
@@ -49,13 +56,9 @@ input{
 }
 .mobile-view-control{
     position: fixed;
-    top: 66px;
-    left: 0;
-    width: calc(100% - 20px);
-    margin: 0 10px;
-    padding: 10px;
+    right: 0;
+    padding: 5px;
+    height: calc(100% - 120px);
     z-index: 2;
-    background: white;
-    border: 2px solid #607D8B;
-    border-radius: 16px;
+    justify-content: space-between;
 }

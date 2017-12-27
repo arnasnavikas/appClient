@@ -1,8 +1,7 @@
 import { Component, OnChanges,ViewEncapsulation,Input,OnInit,ViewChild, group } from '@angular/core';
 import { BackendService } from '../../backend.service'
 import { GroupInterface,GalerijaInterface,TeamMemberInterfase} from '../../interface.enum'
-import { DragScroll } from 'ngx-drag-scroll'
-import { ApearAnimation } from '../../animations/site.animation'
+import { fadeInAnimation } from '../../animations/site.animation'
 import { Router,ActivatedRoute,NavigationEnd } from '@angular/router'
 import { FormControl } from '@angular/forms';
 @Component({
@@ -10,15 +9,16 @@ import { FormControl } from '@angular/forms';
   templateUrl: './gallerys.component.html',
   styleUrls: ['./gallerys.component.css'],
   encapsulation: ViewEncapsulation.None,
-  animations : ApearAnimation
+  animations : fadeInAnimation,
+  host: { '[@fadeInAnimation]': '' }
 })
 export class GallerysComponent implements OnInit  {
   constructor(private backendService : BackendService,private _router: ActivatedRoute, private router: Router) { }
-  private groupList = new FormControl()
-  private groups : GroupInterface[] = []
-  private gallerys : GalerijaInterface[] = []
-  private const_gallerys : GalerijaInterface[] = []
-  private show = 'inactive' // animation triger
+  public groupList = new FormControl()
+  public groups : GroupInterface[] = []
+  public gallerys : GalerijaInterface[] = []
+  public const_gallerys : GalerijaInterface[] = []
+  public show = 'inactive' // animation triger
 
   animationDone(e){
     this.show = 'active'

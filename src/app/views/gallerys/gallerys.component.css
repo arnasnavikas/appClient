@@ -1,10 +1,18 @@
 .gallery-card{
     width: 200px;
     margin-bottom: 10px;
-    margin-left: 10px;
     height:-webkit-fit-content;
     height:-moz-fit-content;
     height:fit-content
+}
+.gallery-card:nth-child(even){
+    margin-left: 10px;
+}
+.gallery-card:nth-child(odd){
+    margin-left: 10px;
+}
+#gallerys-container{
+    padding: 10px;
 }
 .my-image{
     width: 100%;
@@ -21,14 +29,17 @@
     right: 30px;
     font-weight: 800;
 }
-#filter-gallerys{
+#filter-container{
     position: fixed;
     top: 66px;
     left: 0;
-    width: calc(100% - 20px);
+    width: 100%;
+    z-index: 2;
+}
+#filter-gallerys{
     margin: 0 10px;
     padding: 10px;
-    z-index: 2;
+    position: relative;
     background: white;
     border: 2px solid #607D8B;
     border-radius: 16px;

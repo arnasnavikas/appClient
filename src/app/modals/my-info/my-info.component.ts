@@ -11,7 +11,7 @@ import { SliderAnimation} from '../../animations/site.animation'
 })
 export class MyInfoComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<MyInfoComponent>, @Inject(MAT_DIALOG_DATA) public data: TeamMemberInterfase) { }
+  constructor(public dialogRef: MatDialogRef<MyInfoComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
   pictures : PictureInterface[] = []
    picture_taken;
   private image_description;

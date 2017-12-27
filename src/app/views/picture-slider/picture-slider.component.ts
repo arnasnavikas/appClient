@@ -20,7 +20,7 @@ export class PictureSliderComponent implements OnInit {
   private _source;
   private right;
   private left;
-  private gallery_animation
+  public gallery_animation
   private infoShowed = 'close' // for mobile phones click on image is turning on image info
   /**###############################################
    * CHECK IF IMAGES NOT EMPTY, AND SETS FIRST
@@ -33,7 +33,7 @@ export class PictureSliderComponent implements OnInit {
     if(this.pictures.length > 0){
       this._source = this.pictures[this.index].imgURL;
       this.image_description = this.pictures[this.index].description;
-      this.gallery_name = this.pictures[this.index].folder_name
+      this.gallery_name = this.pictures[this.index].gallery_name
     }
   } 
   closeGallery =(event)=>{

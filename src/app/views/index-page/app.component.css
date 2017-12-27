@@ -36,6 +36,7 @@
     width:100%;
     height: calc(100% - 60px);  
     overflow: hidden; 
+    background: linear-gradient(rgba(96,125,139,1),white);
 }
 @media only screen and (max-width: 600px) {
    #main-content{
@@ -45,10 +46,10 @@
    }
 }
 .active-button{
-    background: #E64A19 !important;
+    background: #607D8B !important;
     color: white;
 }
 .active-link{
-    background: #FF5722 !important;
+    background: rgb(107, 137, 151) !important;
     color: white;
 }

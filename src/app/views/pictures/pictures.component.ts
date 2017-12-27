@@ -2,21 +2,21 @@ import { Component, OnInit, ViewEncapsulation,ViewChild } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router'
 import { BackendService} from '../../backend.service'
 import { PictureInterface } from '../../interface.enum'
-import { DragScroll } from 'ngx-drag-scroll'
-
+import { fadeInAnimation } from '../../animations/site.animation'
 @Component({
   selector: 'app-pictures',
   templateUrl: './pictures.component.html',
   styleUrls: ['./pictures.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: fadeInAnimation,
+  host: {'[@fadeInAnimation]':''}
 })
 export class PicturesComponent implements OnInit {
 
   constructor(private backendService : BackendService,private _router: ActivatedRoute, private router: Router) { }
-  @ViewChild('scrollDrag',{read: DragScroll}) scroll_container;
   picture_open = false // opens fullscreen image slider if set to true
   picture_index;
-  private pictures : PictureInterface[] = []
+  public pictures : PictureInterface[] = []
   ngOnInit() {
     console.log('pictures init()')
     this._router.params.subscribe(param=>{

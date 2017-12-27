@@ -1,5 +1,5 @@
 
-<mat-sidenav-container >
+<mat-sidenav-container style="background:rgba(0,0,0,0) !important" >
   <mat-sidenav #sidenav  >
     <mat-nav-list >
 
@@ -21,26 +21,22 @@
   <mat-sidenav-content >
     <div fxLayout fxLayoutWrap fxLayoutAlign='space-between' style="width:100%;">
               <!-- ************** CONTROLS FOR MOBILE VIEW ************ -->
-      <div  fxHide.gt-xs='true' fxLayout fxLayoutWrap fxLayoutAlign='center' class="mobile-view-control">
+      <div  fxHide.gt-xs='true' fxLayout='column' fxLayoutWrap  class="mobile-view-control">
+         <!-- OPEN SIDENAV OPTIONS -->
+          <button  mat-mini-fab (click)="sidenav.open()" ><mat-icon>settings</mat-icon></button>
         <!-- BACK FROM VIEW SAMATA VIEW BUTTON -->
-        <span fxFlex='15'>
-          <button mat-fab color="primary" [disabled]="!view_samata" (click)='rows = previous_rows;view_samata =false' matTooltip='Tęsti skaičiavimą'><mat-icon>undo</mat-icon></button>
-        </span>
+          <button mat-mini-fab color="primary" *ngIf="view_samata" (click)='rows = previous_rows;view_samata =false' matTooltip='Tęsti skaičiavimą'  matTooltipClass='show-more'><mat-icon>undo</mat-icon></button>
       <!--  mobile search field -->
-        <mat-form-field fxFlex='70' >
+        <!-- <mat-form-field fxFlex='70' >
             <span matPrefix><mat-icon>search</mat-icon></span>
             <input #searchMobile  matInput type="text"  placeholder="Ieškoti" autocomplete="off">   
             <button *ngIf="search.value != ''" matSuffix mat-icon-button  (click)="search.value = ''; rows = constRows">
               <mat-icon>close</mat-icon>
             </button> 
-        </mat-form-field> 
-        <!-- OPEN SIDENAV OPTIONS -->
-        <span fxFlex='15'>
-          <button  mat-fab (click)="sidenav.open()" ><mat-icon>settings</mat-icon></button>
-        </span>
-        
+        </mat-form-field>  -->
+       
       <!--  mobile group list -->
-        <mat-form-field fxFlex='80'>
+        <!-- <mat-form-field fxFlex='80'>
             <mat-select (selectionChange)='filterRows($event)'   placeholder="Paslaugos" [formControl]="groupList" multiple>
               <mat-select-trigger>
                 {{groupList.value && groupList.value[0] ? groupList.value[0].name : ''}}
@@ -53,7 +49,7 @@
           </mat-form-field>
           <span fxLayout fxLayoutAlign='center center' fxFlex='10'>
             <mat-checkbox  (change)='selectAll($event)' [disabled]='view_samata'></mat-checkbox>
-          </span>
+          </span> -->
       </div>
               <!-- ************** CONTROLS FOR DESKTOP VIEW ************ -->
             
@@ -62,7 +58,7 @@
                   <mat-form-field style="width:180px;">
                       <span matPrefix><mat-icon>search</mat-icon></span>
                       <input #search  matInput type="text"  placeholder="Ieškoti" autocomplete="off">   
-                      <button *ngIf="search.value != ''" matSuffix mat-icon-button  (click)="search.value = ''; rows = constRows">
+                      <button *ngIf="search.value != ''" matSuffix mat-icon-button  (click)="resetSearch($event.target)">
                         <mat-icon>close</mat-icon>
                       </button> 
                     </mat-form-field>  
@@ -82,22 +78,22 @@
                       <mat-checkbox (change)='selectAll($event)' [disabled]='view_samata'>Pažymėti visas</mat-checkbox>
                       <!-- SAMATA CONTROLS  -->
                           <!-- view samata -->
-                      <button mat-raised-button color="warn" class="control-button" *ngIf="!view_samata" [disabled]='samata.length == 0' (click)='viewList()' matTooltip='Žiūrėti samatą'><mat-icon>view_list</mat-icon> Žiūrėti samata ({{samata.length}})</button>
+                      <button mat-raised-button color="warn" class="control-button" *ngIf="!view_samata" [disabled]='samata.length == 0' (click)='viewList()' ><mat-icon>view_list</mat-icon> Žiūrėti samata ({{samata.length}})</button>
                           <!-- send samata -->
-                      <button mat-raised-button color="primary" class="control-button" style='margin-bottom:10px' [disabled]='samata.length == 0' (click)='sendSamata()' matTooltip='Siūsti samatą'><mat-icon>send</mat-icon> Siūsti samatą </button>
+                      <button mat-raised-button color="primary" class="control-button" style='margin-bottom:10px' [disabled]='samata.length == 0' (click)='sendSamata()'><mat-icon>send</mat-icon> Siūsti samatą </button>
                           <!-- navigate back to list -->
-                      <button mat-fab color="primary" style="margin:10px 0" *ngIf="view_samata" (click)='rows = previous_rows;view_samata =false' matTooltip='Tęsti skaičiavimą'><mat-icon>undo</mat-icon></button>
+                      <button mat-fab color="primary" style="margin:10px 0" *ngIf="view_samata" (click)='rows = previous_rows;view_samata =false' matTooltip='Tęsti skaičiavimą'  matTooltipClass='show-more' matTooltipPosition='after'><mat-icon>undo</mat-icon></button>
                       <mat-chip-list class="mat-typography mat-chip-list-stacked" aria-orientation="vertical">
-                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#757575 !important" selected="true">Kaina už darbus:<span >{{samataWorkPrice | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon></mat-chip>
-                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#616161 !important" selected="true">Kaina už medžiagas:<span >{{samataMaterialPrice | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon> </mat-chip>
-                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#424242 !important" selected="true">Viso:<span >{{(samataMaterialPrice+samataWorkPrice) | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon><mat-icon matTooltip='Ištrinti samatą' (click)='deleteSamata()' matChipRemove >cancel</mat-icon> </mat-chip>
+                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#757575 !important" selected="true">Darbas:<span >{{samataWorkPrice | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon></mat-chip>
+                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#616161 !important" selected="true">Medžiagos:<span >{{samataMaterialPrice | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon> </mat-chip>
+                          <mat-chip fxLayout fxLayoutAlign='space-between center' style="background:#424242 !important" selected="true">Viso:<span >{{(samataMaterialPrice+samataWorkPrice) | number:'.2'}}</span><mat-icon>euro_symbol</mat-icon><mat-icon matTooltip='Ištrinti samatą'  matTooltipClass='show-more' (click)='deleteSamata()' matChipRemove >cancel</mat-icon> </mat-chip>
                         </mat-chip-list>
                     </div>
                   
                       <!-- SAMATA CARD  -->
                     <div id="cards-container" *ngIf="rows.length > 0" fxLayout fxLayoutWrap fxLayoutAlign='space-around '>
                       <mat-card *ngFor='let row of rows' class="job-card">
-                          <button *ngIf="view_samata"  (click)='removeRow(row)' class="top-right" matTooltip='Ištrinti' mat-icon-button > <mat-icon>&#xE5C9;</mat-icon></button>
+                          <button *ngIf="view_samata"  (click)='removeRow(row)' class="top-right" matTooltip='Ištrinti'  matTooltipClass='show-more' mat-icon-button > <mat-icon>&#xE5C9;</mat-icon></button>
                           
                           <mat-card-header>
                             <mat-card-title ><span #rowName >{{row.search_name }}</span></mat-card-title>
@@ -129,7 +125,6 @@
                                                                   (keydown)='limitValue(row,"material_price")'
                                                                   (keyup)='limitValue(row,"material_price")' min="0" autocomplete="off">
                                   </mat-form-field>
-                                  <p *ngIf='row.iframeURL !=""' >Kur pirkti medžiagas? <button mat-icon-button><mat-icon>&#xE88F;</mat-icon></button> </p>
                                   <p>Suma už darbus: {{(row.input*row.price) | currency:'EUR':"symbol":'1.2-2'}} </p>
                                   <p>Suma už medžiagas:{{(row.input*row.material_price*row.iseiga) | currency:'EUR':"symbol":'1.2-2'}} </p>
                                   <p>Viso :{{((row.input*row.price)+(row.input*row.material_price*row.iseiga )) | currency:'EUR':"symbol":'1.2-2'}} </p>
@@ -139,6 +134,7 @@
                           <mat-card-actions>
                             <button mat-button *ngIf="!row.added" (click)='addToList(row)'><mat-icon>&#xE854;</mat-icon>Įtraukti į samatą</button>
                             <button mat-raised-button  color='accent' *ngIf="row.added" (click)='updateSamata(row)'><mat-icon>refresh</mat-icon>Atnaujinti samatą</button>
+                            <a *ngIf="row.iframeURL" [href]="row.iframeURL" target="blank" mat-icon-button matTooltip='Kur pirkti medžiagas?' matTooltipClass='show-more'><mat-icon>info</mat-icon></a>
                           </mat-card-actions>
                         </mat-card>
                       </div>

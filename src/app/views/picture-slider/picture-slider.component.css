@@ -152,14 +152,15 @@
   #image-footer{
     display: block;
     position: absolute;
-    background: -moz-linear-gradient(rgba(255, 255, 255,0),rgba(0, 0, 0,.5));
-    padding: 0 20px;
     bottom: 0;
     left: 0;
     height: auto;
     width: 100%;
+    background: linear-gradient(rgba(0,0,0,0)-8%,rgba(0,0,0,1)73%);
   }
-  
+  #image-footer p{
+    padding: 10px;
+  }
   #galerijos-pavadimas{
     display: -webkit-box;
     display: -ms-flexbox;
