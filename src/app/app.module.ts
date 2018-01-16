@@ -12,13 +12,14 @@ import { GallerysComponent } from './views/gallerys/gallerys.component';
 import { JobPriceComponent } from './views/job-price/job-price.component'
 import { MyTeamComponent } from './views/my-team/my-team.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component'
-// services
-import { BackendService } from "./backend.service";
 import { PicturesComponent } from './views/pictures/pictures.component';
 import { JobStoreComponent } from './views/job-store/job-store.component';
 import { SendMailComponent } from './modals/send-mail/send-mail.component';
 import { MyInfoComponent } from './modals/my-info/my-info.component';
 import { PictureSliderComponent } from './views/picture-slider/picture-slider.component';
+// services
+import { BackendService } from "./backend.service";
+import { SocketService } from './socket.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,7 @@ import { PictureSliderComponent } from './views/picture-slider/picture-slider.co
     AppRoutingModule,
   ],
   entryComponents:[SendMailComponent,MyInfoComponent],
-  providers: [BackendService],
+  providers: [BackendService,SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

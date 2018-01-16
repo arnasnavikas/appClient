@@ -8,10 +8,11 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 var address1 = 'localhost:3000'
-var address = '192.168.1.67:3000'
+var address = '192.168.1.65:3000'
 
 export const environment = {
   production: false,
+          ip_address : address,
                 /** sends mail */
         sendMailUrl : 'http://'+address+'/mail/send',
 /***************************** GALLERY  ************************* */

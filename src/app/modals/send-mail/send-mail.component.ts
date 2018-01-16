@@ -29,17 +29,20 @@ export class SendMailComponent implements OnInit {
     private address_result: Observable<Object[]>
     sendingMail = false;
     options 
-    private mailForm : FormGroup = this.fb.group({ name:this.fb.control('',[Validators.required]),
+    private mailForm : FormGroup = this.fb.group({ name:this.fb.control('',[Validators.required,Validators.maxLength(60)]),
                                                  email: this.fb.control('',[Validators.required,Validators.pattern(new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/))]),
-                                                 user_id: this.fb.control(this.backendService.selected_user._id),
-                                                 message: this.fb.control('',[Validators.required]),
-                                                 address: this.fb.control('',[Validators.required])
+                                                 user_id: this.fb.control('',[Validators.required, Validators.maxLength(60)]),
+                                                 message: this.fb.control('',[Validators.required, Validators.maxLength(600)]),
+                                                 address: this.fb.control('',[Validators.required, Validators.maxLength(60)])
                                                 })
 
   ngOnInit() {
+    console.log(this.mailForm)
     if(this.data){
       this.mailForm.addControl('samata',this.fb.control(this.data))
     }
+    if(this.backendService.selected_user)
+      this.mailForm.controls['user_id'].setValue(this.backendService.selected_user._id)
     this.backendService.searchAdress()
                        .subscribe(data=>{
                         console.log(data)
@@ -58,7 +61,7 @@ export class SendMailComponent implements OnInit {
 }
 
   sendMail(){
-    console.log(this.mailForm.value)
+    console.log(this.mailForm)
     this.mailForm.updateValueAndValidity()
     if(!this.mailForm.valid){
       Object.keys(this.mailForm.controls).forEach(key => {

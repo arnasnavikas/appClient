@@ -17,35 +17,50 @@
       </div>
     </div>
       <mat-card style="padding:10px !important">
-      <mat-card-title style="text-align:center">Statusas
+      <mat-card-title fxLayout fxLayoutAlign='center'>
+        <span fxLayout fxLayoutAlign='space-around center' *ngIf="data.status==0">
+          <span  class='indicator red'></span>
+          <span>Užimtas</span>
+        </span>
+        <span fxLayout fxLayoutAlign='space-around center' *ngIf="data.status==1">
+          <span  class='indicator orange'></span>
+          <span>Atostogauju</span>
+        </span>
+        <span fxLayout fxLayoutAlign='space-around center' *ngIf="data.status==2">
+          <span  class='indicator green'></span>
+          <span>Laisvas</span>
+        </span>
       </mat-card-title>
       <mat-card-subtitle>Įrašas atnaujintas: {{data.updated | date :"yyyy.MM.dd"}}</mat-card-subtitle>
-              <span [ngSwitch]="data.status" class='mat-typography'>
-                <div fxLayout fxLayoutAlign='space-between center'  *ngSwitchCase="0" class='limit-height' >
-                  <span class='indicator red'></span>
-                  <div fxLayout='column' fxLayoutAlign='center'>
-                    <div class='mat-typography'  fxLayout fxLayoutAlign='space-between center'>
+              <span [ngSwitch]="data.status" fxLayout fxLayoutAlign='center' class='mat-typography'>
+                <div fxLayout='column' fxLayoutAlign='center'  *ngSwitchCase="0">
+                  <!-- <span class='indicator red'></span> -->
+                  <!-- <div > -->
+                    <div class='mat-typography'  fxLayout fxLayoutAlign='flex-start center'>
                       <mat-icon mat-list-icon>&#xE916;</mat-icon>
                       Užimtas iki {{data.date | date:'yyyy-MM-dd'}}
                     </div>
-                    <div class='mat-typography'  fxLayout fxLayoutAlign='space-between center'>
+                    <div class='mat-typography'  fxLayout fxLayoutAlign='flex-start center'>
                       <mat-icon mat-list-icon>timer</mat-icon>
-                      Laukimo periodas: {{data.days_left}} dien<span *ngIf="data.days_left > 1">ų</span><span *ngIf="data.days_left == 1">a</span>
+                      <span> Laukimo periodas: {{data.days_left}}</span> &nbsp;
+                      <span *ngIf="data.days_left == 1 "> diena</span>
+                      <span *ngIf="data.days_left > 1 && data.days_left < 10"> dienos</span>
+                      <span *ngIf="data.days_left > 10"> dienų</span>
                     </div>
-                  </div>
+                  <!-- </div> -->
                 </div>
-                <div fxLayout fxLayoutAlign='space-between center' *ngSwitchCase="1" class='limit-height' >
-                  <span class='indicator orange'></span>
-                  <div fxLayout='column' fxLayoutAlign='center'>
-                    <div class='mat-typography'  fxLayout fxLayoutAlign='space-between center'>
+                <div  fxLayout='column' fxLayoutAlign='center' *ngSwitchCase="1" >
+                    <div class='mat-typography'  fxLayout fxLayoutAlign='flex-start center'>
                         <mat-icon mat-list-icon>&#xE916;</mat-icon>
                         Atotogauju iki {{data.date | date:'yyyy-MM-dd'}}
                     </div>
-                    <div class='mat-typography'  fxLayout fxLayoutAlign='space-between center'>
+                    <div class='mat-typography'  fxLayout fxLayoutAlign='flex-start center'>
                         <mat-icon mat-list-icon>timer</mat-icon>
-                        Laukimo periodas: {{data.days_left}} <span *ngIf="data.days_left > 1">dienų</span><span *ngIf="data.days_left == 1">diena</span>
+                        <span>Laukimo periodas: {{data.days_left}}</span> &nbsp;
+                        <span *ngIf="data.days_left == 1 "> diena</span>
+                        <span *ngIf="data.days_left > 1 && data.days_left < 10">dienos</span>
+                        <span *ngIf="data.days_left > 10"> dienų</span>
                     </div>
-                  </div>
                 </div>
                 <div fxLayout fxLayoutAlign='space-between center' *ngSwitchCase="2" class='limit-height' >
                   <span class='indicator green'></span>

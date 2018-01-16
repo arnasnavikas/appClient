@@ -8,7 +8,7 @@ app-my-info{
     }
 
 #picture-el{
-    width: 100%;
+    max-width: 100%;
     height: auto;
     max-height: 200px;
     -ms-flex-item-align: center;
@@ -42,3 +42,4 @@ app-my-info{
     background: rgba(0,0,0,.5) ;
     color: rgba(255,255,255,0.5);
   }
+  

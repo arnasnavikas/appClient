@@ -3,8 +3,9 @@
     <mat-tab label="Žinutė" style="width:100%;">
       <form fxLayout='column'  fxLayoutWrap fxLayoutAlign="center" [formGroup]='mailForm' style="width:100%">
         <mat-form-field class="mail-input" >
-          <input matInput placeholder="Vardas"  autocomplete="off" formControlName="name" required>
+          <input matInput placeholder="Vardas" maxlength="61"  autocomplete="off" formControlName="name" required>
           <mat-error *ngIf="mailForm.controls['name'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
+          <mat-error *ngIf="mailForm.controls['name'].hasError('maxlength')">Vardas iki 60 simbolių.</mat-error>
         </mat-form-field>
         <mat-form-field class="mail-input">
           <input [errorStateMatcher]="matcher" autocomplete="off" matInput placeholder="El. Paštas" formControlName="email" required>
@@ -12,18 +13,20 @@
           <mat-error *ngIf="mailForm.controls['email'].hasError('pattern') && !mailForm.controls['email'].hasError('required')">Netinkamas formatas</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
-            <input type="text" placeholder="Miestas" aria-label="Number" matInput formControlName="address" [matAutocomplete]="auto">
+            <input type="text" placeholder="Miestas" maxlength="61" aria-label="Number" matInput formControlName="address" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let addr of address_result | async" [value]="addr.name">
                 {{ addr.name }}
               </mat-option>
             </mat-autocomplete>
           <mat-error *ngIf="mailForm.controls['address'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
+          <mat-error *ngIf="mailForm.controls['address'].hasError('maxlength')">Pavadinimas iki 60 simbolių!</mat-error>
           </mat-form-field>
         
         <mat-form-field class="mail-input">
-          <textarea matInput placeholder="Žinutė" formControlName="message" required></textarea>
+          <textarea matInput placeholder="Žinutė" maxlength="601" formControlName="message" required></textarea>
           <mat-error *ngIf="mailForm.controls['message'].hasError('required')">Laukelis negali būti tuščias!</mat-error>
+          <mat-error *ngIf="mailForm.controls['message'].hasError('maxlength')">Tekstas per ilgas! Iki 600 simbolių.</mat-error>
         </mat-form-field>
       </form>
     </mat-tab>

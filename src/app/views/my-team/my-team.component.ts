@@ -1,11 +1,10 @@
-import {Component, OnInit, Input, Output,
-  EventEmitter,ViewEncapsulation} from '@angular/core';
-import { TeamMemberInterfase, GroupInterface } from '../../interface.enum'
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {TeamMemberInterfase, GroupInterface } from '../../interface.enum'
 import {BackendService} from '../../backend.service'
-import { SliderAnimation } from '../../animations/site.animation'
+import {SliderAnimation } from '../../animations/site.animation'
 import {Router } from '@angular/router'
-import { MyInfoComponent} from '../../modals/my-info/my-info.component'
-import { MatDialog} from '@angular/material'
+import {MyInfoComponent} from '../../modals/my-info/my-info.component'
+import {MatDialog} from '@angular/material'
 @Component({
   selector: 'app-my-team',
   templateUrl: './my-team.component.html',
@@ -17,7 +16,6 @@ export class MyTeamComponent implements OnInit {
 
   constructor(private dialog:MatDialog,private backendService : BackendService,private router :Router) { }
 private users : TeamMemberInterfase[] = [];
-@Output() selectUser  = new EventEmitter();
 private user_index = 0;
 public user :TeamMemberInterfase;
 // animation trigers
@@ -31,6 +29,8 @@ showInfo(user:TeamMemberInterfase){
   })
 }
 loadGroups(user){
+  if(!user)
+    return;
   this.backendService.selected_user = user
   this.backendService.getGroups(user._id)
                      .subscribe((groups:GroupInterface[])=>{

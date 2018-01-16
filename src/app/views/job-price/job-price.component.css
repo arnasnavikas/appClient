@@ -2,19 +2,12 @@
 .group-card{
     width: 200px;
     margin-bottom: 10px;
+    margin-right: 10px;
     text-align: center;
     height:fit-content;
     max-height: 365px;
 }
-.group-card:first-child{
-    margin: 0 !important;
-}
-.group-card:nth-child(even){
-    margin-left: 10px;
-}
-.group-card:nth-child(odd){
-    margin-left: 10px;
-}
+
 .my-image{
     width: 100%;
 }

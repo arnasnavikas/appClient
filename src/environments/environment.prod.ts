@@ -1,27 +1,28 @@
-var address = '192.168.1.67:3000'
+var address = 'http://arno-apdaila.lt/api'
 
 export const environment = {
   production: true,
+        ip_address : address,
                 /** sends mail */
-        sendMailUrl : 'http://'+address+'/mail/send',
+        sendMailUrl : address+'/mail/send',
 /***************************** GALLERY  ************************* */
                 /** load gallerys */
-       get_gallerys : 'http://'+address+'/gallery/user-id/',
+       get_gallerys : address+'/gallery/user-id/',
         /******************************* PICTURES************************** */
         /** get pictures by gallery route */
-getPicturesUrl : 'http://'+address+'/picture/get-pictures/',
+getPicturesUrl : address+'/picture/get-pictures/',
 
 /******************************* GROUP **************************** */
                 /** downloads all groups */
-          getGroups : 'http://'+address+'/group/',
+          getGroups : address+'/group/',
 /******************************* TABLE **************************** */
                 /** get table by group id*/
-        getTableUrl : 'http://'+address+'/table/get-tables/',
+        getTableUrl : address+'/table/get-tables/',
 /******************************* TEAM MEMBER **************************** */
                 /** gets specific member  */
-getUserUrl : 'http://'+address+'/my-team/',
+getUserUrl : address+'/my-team/',
                 /** gets all  team members  */
-getTeamMemberUrl : 'http://'+address+'/my-team/get-members',
+getTeamMemberUrl : address+'/my-team/get-members',
                 /** cities of lithuania */
   
 }

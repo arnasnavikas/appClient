@@ -7,7 +7,7 @@
                     <mat-card-header fxLayout fxLayoutAlign='center center'>
                         <mat-card-title style="font-weight:bold">{{group.name}}</mat-card-title>
                         <mat-card-subtitle fxLayout fxLayoutAlign='center center' >
-                            <mat-icon>photo_library</mat-icon>{{" "+group.gallerys}}  galerij<span *ngIf="group.gallerys > 1">os</span><span *ngIf="group.gallerys == 1">a</span> 
+                            <mat-icon>photo_library</mat-icon>Darbų galerijos [{{group.gallerys}}]
                         </mat-card-subtitle>
                     </mat-card-header>  
                     <div fxLayout fxLayoutAlign='center center' [routerLink]='["/galerijos",group.user_id,i]' class="image-container" >
@@ -34,3 +34,4 @@
     </div>
 
  <!-- <div id="index-backgroud"></div> -->
+ 
